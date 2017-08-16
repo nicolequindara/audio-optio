@@ -1,0 +1,81 @@
+﻿@model PayPal.Api.Payment
+
+<h2>Thank you!</h2>
+
+
+<div class="row">
+    <div class="col-lg-12 alert alert-success">
+        Thank you!  Your order was submitted and payment was successful.  Ryan will be in touch with you shortly.
+    </div>
+</div>
+
+
+<h2> Order Information </h2>
+
+<div class="row">
+    <div class="col-md-3"><strong>@Html.Label("Invoice Number")</strong></div>
+    <div class="col-md-9">@Model.transactions.First().invoice_number</div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-3"><strong>@Html.Label("Name")</strong></div>
+    <div class="col-md-9">@Model.payer.payer_info.first_name @Model.payer.payer_info.last_name</div>
+</div>
+
+
+@if (!String.IsNullOrEmpty(Model.payer.payer_info.email))
+{
+    <div class="row">
+        <div class="col-md-3"><strong>@Html.Label("E-mail")</strong></div>
+        <div class="col-md-9">@(String.IsNullOrEmpty(Model.payer.payer_info.email) ? Model.payer.payer_info.email : "") </div>
+    </div>
+}
+
+
+@if (!String.IsNullOrEmpty(Model.payer.payer_info.phone))
+    {
+<div class="row">
+    <div class="col-md-3"><strong>@Html.Label("Phone")</strong></div>
+    <div class="col-md-9">@(String.IsNullOrEmpty(Model.payer.payer_info.phone) ? Model.payer.payer_info.phone : "")</div>
+</div>
+}
+
+
+@if(Model.payer.payer_info.billing_address != null)
+{ 
+<div class="row">
+    <div class="col-md-3"><strong>@Html.Label("Billing Address")</strong></div>
+    <div class="col-md-9">
+        @(String.IsNullOrEmpty(Model.payer.payer_info.billing_address.line1) ? Model.payer.payer_info.billing_address.line1 : "") <br />
+        @(String.IsNullOrEmpty(Model.payer.payer_info.billing_address.line2) ? Model.payer.payer_info.billing_address.line2 : "") <br />
+        @(String.IsNullOrEmpty(Model.payer.payer_info.billing_address.city) ? Model.payer.payer_info.billing_address.city : ""), 
+        @(String.IsNullOrEmpty(Model.payer.payer_info.billing_address.state) ? Model.payer.payer_info.billing_address.state : "") 
+        @(String.IsNullOrEmpty(Model.payer.payer_info.billing_address.postal_code) ? Model.payer.payer_info.billing_address.postal_code : "")
+    </div>
+</div>
+}
+
+@if (Model.payer.payer_info.shipping_address != null)
+{
+    <div class="row">
+        <div class="col-md-3"><strong>@Html.Label("Shipping Address")</strong></div>
+        <div class="col-md-9">
+            @(String.IsNullOrEmpty(Model.payer.payer_info.shipping_address.line1) ? Model.payer.payer_info.shipping_address.line1 : "") <br />
+            @(String.IsNullOrEmpty(Model.payer.payer_info.shipping_address.line2) ? Model.payer.payer_info.shipping_address.line2 : "") <br />
+            @(String.IsNullOrEmpty(Model.payer.payer_info.shipping_address.city) ? Model.payer.payer_info.shipping_address.city : ""),
+            @(String.IsNullOrEmpty(Model.payer.payer_info.shipping_address.state) ? Model.payer.payer_info.shipping_address.state : "")
+            @(String.IsNullOrEmpty(Model.payer.payer_info.shipping_address.postal_code) ? Model.payer.payer_info.shipping_address.postal_code : "")
+        </div>
+    </div>
+}
+
+<div class="row">
+    <div class="col-md-3"><strong>@Html.Label("Description")</strong></div>
+    <div class="col-md-9">@Model.transactions.First().description - @Model.transactions.First().item_list.items.First().name</div>
+</div>
+
+<div class="row">
+    <div class="col-md-3"><strong>@Html.Label("Total")</strong></div>
+    <div class="col-md-9">$@Model.transactions.First().amount.total USD</div>
+</div>

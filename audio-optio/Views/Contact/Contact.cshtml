@@ -1,0 +1,62 @@
+﻿@model audio_optio.Models.ContactCommentModel
+
+@{
+    ViewBag.Title = "Contact";
+}
+<h1 class="emphasize">@ViewBag.Title</h1>
+
+@using (Html.BeginForm("Create", "Contact", FormMethod.Post))
+{
+    if (@Model.success)
+    {
+    <div class="row">
+        <div class="col-lg-12 alert alert-success">
+            Thank you!  Your message has been sent.  Ryan will be in touch with you shortly.
+        </div>
+    </div>
+    }
+
+    if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+    {
+        <div class="alert alert-danger" role="alert">
+            <a class="close" data-dismiss="alert">×</a>
+            @foreach (ModelError modelError in Html.ViewData.ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+            {
+                <p>@modelError.ErrorMessage</p>
+            }
+        </div>
+    }
+
+
+    <div class="row">
+        <div class="col-md-3">@Html.Label("First Name")</div>
+        <div class="col-md-9">@Html.TextBoxFor(c => c.contact.FirstName, new { @class = "form-control" })</div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-3">@Html.Label("Last Name")</div>
+        <div class="col-md-9">@Html.TextBoxFor(c => c.contact.LastName, new { @class = "form-control" })</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">@Html.Label("Phone Number")</div>
+        <div class="col-md-9">@Html.TextBoxFor(c => c.contact.Phone, new { @class = "form-control" })</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">@Html.Label("E-mail Address")</div>
+        <div class="col-md-9">@Html.TextBoxFor(c => c.contact.Email, new { @class = "form-control" })</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3">@Html.Label("Comments")</div>
+        <div class="col-md-9">@Html.TextAreaFor(c => c.comment.Text, new { @class = "form-control", @rows = 10 })</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-2 col-md-offset-5">
+            <input class="transition-button" type="submit" value="Submit" />
+        </div>
+    </div>
+}

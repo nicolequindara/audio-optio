@@ -1,0 +1,138 @@
+﻿@model audio_optio.Models.ContactOrderModel
+
+@{
+    ViewBag.Title = "Order";
+}
+<h1 class="emphasize">@ViewBag.Title</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title no_underline">
+                        <div data-toggle="collapse"  data-parent="#accordion" href="#how_to_order">
+                            <span class="glyphicon glypicon-music-alt"></span>How to Order
+                        </div>
+                    </h4>
+                </div>
+                <div id="how_to_order" class="panel-collapse collapse in">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p>
+                                    To start the process of having your song in a painting,
+                                    you’ll need to send important details including:
+                                </p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul>
+                                    <li>your favorite song, </li>
+                                    <li>preferred size of canvas, </li>
+                                    <li>color(s) theme, </li>
+                                    <li>any special comments to describe why you like the song,</li>
+                                    <li>and any general comments that might help me to create art that's perfect for you.</li>
+                                </ul>
+                                <p>
+                                    After you submit your order I will provide 5 unique samples within a week.
+                                    You will pick your favorite and then I’ll finishing
+                                    rendering in preparation for print.
+                                    Depending on print shop demand, the final piece of art
+                                    should arrive at your door 2-3 weeks after you pick your favorite sample.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title no_underline">
+                        <div data-toggle="collapse"  data-parent="#accordion" href="#collapseTwo">
+                            <span class="glyphicon glyphicon-cart-in">
+                            </span>Order
+                        </div>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        @using (Html.BeginForm("Create", "Order", FormMethod.Post))
+            {
+                if (@Model.success)
+                {
+                        <div class="row">
+                            <div class="col-lg-12 alert alert-success">
+                                Thank you!  Your order has been submitted.  Ryan will be in touch with you shortly.
+                            </div>
+                        </div>
+
+                            }
+
+                            if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+                            {
+                        <div class="alert alert-danger" role="alert">
+                            <a class="close" data-dismiss="alert">×</a>
+                            @foreach (ModelError modelError in Html.ViewData.ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+                    {
+                                    <p>@modelError.ErrorMessage</p>
+                                    }
+                        </div>
+                            }
+
+                        <div class="row">
+                            <div class="col-md-3">@Html.Label("First Name")</div>
+                            <div class="col-md-9">@Html.TextBoxFor(c => c.contact.FirstName, new { @class = "form-control" })</div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-3">@Html.Label("Last Name")</div>
+                            <div class="col-md-9">@Html.TextBoxFor(c => c.contact.LastName, new { @class = "form-control" })</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">@Html.Label("Phone Number")</div>
+                            <div class="col-md-9">@Html.TextBoxFor(c => c.contact.Phone, new { @class = "form-control" })</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">@Html.Label("E-mail Address")</div>
+                            <div class="col-md-9">@Html.TextBoxFor(c => c.contact.Email, new { @class = "form-control" })</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">@Html.Label("Youtube Link")</div>
+                            <div class="col-md-9">@Html.TextBoxFor(c => c.order.YoutubeLink, new { @class = "form-control" })</div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">@Html.Label("Comments")</div>
+                            <div class="col-md-9">@Html.TextAreaFor(c => c.order.Comments, new { @class = "form-control", @rows = 10 })</div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-md-3">@Html.Label("Canvas Size")</div>
+                            <div class="col-md-9">@Html.DropDownListFor(m => m.order.Size, @Model.dropDownLabels, new { @class = "form-control" })</div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-md-2 col-md-offset-5">
+                                <input class="transition-button" type="submit" value="Continue to Payment" />
+                            </div>
+                        </div>
+                        }
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

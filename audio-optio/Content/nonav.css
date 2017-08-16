@@ -1,0 +1,104 @@
+﻿html, body {
+    margin: 0;
+    border: 0;
+    color: White;
+    font-family: JosefinSans-Regular;
+}
+
+.container {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.row {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fb83fa+0,e93cec+100;Pink+3D+%232 */
+    /* background: #fb83fa; /* Old browsers */
+    /* background: -moz-linear-gradient(top, #fb83fa 0%, #e93cec 100%); /* FF3.6-15 */
+    /* background: -webkit-linear-gradient(top, #fb83fa 0%,#e93cec 100%); /* Chrome10-25,Safari5.1-6 */
+    /* background: linear-gradient(to bottom, #fb83fa 0%,#e93cec 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    /* filter: progid:DXImageTransform.Microsoft.gradient( startColorstr= '#fb83fa' , endColorstr= '#e93cec' ,GradientType=0 ); /* IE6-9 */
+    flex-grow: 20;
+    color: White;
+    overflow: hidden;
+    background-position:bottom;
+    background-repeat: no-repeat;
+    background-attachment:fixed;
+    background-position: bottom;
+    background-size:100% 100%;
+}
+
+#about {
+    background-color: #ce93d8;
+}
+
+
+#gallery {
+    background-color: #ba68c8;
+}
+
+#services {
+    background-color: #9c27b0;
+}
+
+#contact {
+    background-color: #8e24aa;
+}
+
+
+.menu_item {
+    flex-grow: 20;
+    transition: all 2s;
+    cursor: pointer;
+}
+
+.row h1 {
+    margin: 20px 0px 0px 50px;
+}
+
+.menu_label {
+    font-weight: bold;
+    font-size:x-large;
+    font-weight: 900;
+}
+
+.menu_item span {
+    margin: 0px 0px 0px 50px;
+    visibility: hidden;
+}
+
+.menu_item:hover {
+    color: #9c27b0;
+    background-image: url('../Images/Mom_grapevine_v8_HIGHRES2.png');
+
+}
+
+    .menu_item:hover span {
+        visibility: visible;
+    }
+
+
+#logo_img {
+    margin-top: 20px;
+}
+#logo {
+    background-color: #f3e5f5;
+    color: #8e24aa;
+    text-align: center;
+    font-size: xx-large;
+    background-position: top;
+    font-family: 'Mitr-Medium';
+}
+
+.control-label {
+    text-align: right;
+}
+
+form {
+    flex-grow: 20;
+    flex-shrink: 5;
+}
+

@@ -1,0 +1,74 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-family:JosefinSans-Regular;
+    font-size:16px;
+}
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top:15px;
+    padding-bottom:75px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+.panel-footer {
+    margin-top: 20px;
+    font-size: 12px;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #efefef;
+    text-align: center;
+}
+
+#logo_img {
+    padding-top: 5px;
+    height: 40px;
+    cursor: pointer
+}
+
+.emphasize {
+    font-family: 'Lobster-Regular';
+    font-size:30px;
+}
+
+.transition-button {
+    transition: all 2s;
+    cursor: pointer;
+    padding: 10px 20px;
+    text-align: center;
+    display: block;
+    margin: 0px auto;
+    font-size: 20px;
+    font-family: 'Lobster-Regular';
+    background-color: #008B8B;
+    color: white;
+    border: solid 1px white;
+}
+
+    .transition-button:hover {
+        border: solid 1px #008B8B;
+        background-color: white;
+        color: #008B8B;
+    }
+
+.nav_link {
+    font-size: 20px;
+}
+
+.no_underline:hover
+{
+    cursor:pointer;
+    font-weight:bold;
+}

@@ -1,0 +1,42 @@
+﻿<h1 class="emphasize">Hello!</h1>
+
+<div class="row">
+    <p>
+        Welcome to Audio Optio, the company that converts your favorite song into unique and striking graphical art.
+    </p>
+
+    <p>
+        The idea behind this work was born from my love of expressing data visually.
+        In my day job, I often present charts and pictures of my calculations simply because
+        no one likes looking at just numbers!
+        Because of this, it was easy for me to imagine that music can be also be illustrated visually.
+        For example any music file you might have (.mp3, .wave, etc.) is made up of data that your computer
+        translates into sound. Songs have intensity, pitch, timbre, and duration encoded in this data.
+        Using math I can extract these features and throw them on a canvas.
+    </p>
+    <p>
+        That data usually looks like this:
+    </p>
+
+    <div class="col-md-12">
+        <a href="~/Images/sound_file.png" data-fancybox="images" data-caption="Sound Waves">
+            <img src="~/Images/sound_file.png" class="img-responsive" alt="Sound Waves" />
+        </a>
+    </div>
+
+    <p>
+        From the start to the end of the song, the squiggly purple lines instruct the computer to push
+        sound out of its speakers quickly and slowly or loudly and softly.
+        The next thing you know, your ears pick up on those sound waves and voilà you’re dancing to Thriller.
+    </p>
+
+    <p>
+        Check out some of my previous work in the gallery.  Better yet, order customized art for yourself!
+    </p>
+
+</div>
+<div class="row">
+    <div class="col-md-2 col-md-offset-5">
+        <input class="transition-button" type="button" onclick="location.href='@Url.Action("Order", "Order")'" value="Order Now" />
+    </div>
+</div>

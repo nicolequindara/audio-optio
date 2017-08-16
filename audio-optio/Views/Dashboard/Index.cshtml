@@ -1,0 +1,45 @@
+﻿@using audio_optio.Domain
+
+@model audio_optio.Models.OrdersModel
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Orders</h2>
+
+<table class="table table-hover table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Order Status</th>
+            <th>Youtube Link</th>
+            <th>Comments</th>
+        </tr>
+    </thead>
+
+        @foreach (Order order in Model.orders)
+        {
+            <tr onclick="window.href='@Url.Action("Dashboard", "Edit", order.Id)'">
+                <td>
+                    @order.Contact.FirstName @order.Contact.LastName
+                </td>
+
+                <td>
+                    @order.OrderStatus.ToString()
+                </td>
+
+                <td>
+                    <a href='@Url.Action(@order.YoutubeLink)'>@order.YoutubeLink</a>
+                </td>
+
+                <td>
+                    @order.Comments
+                </td>
+            </tr>
+
+        }
+
+
+</table>

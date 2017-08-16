@@ -1,0 +1,15 @@
+﻿<h2>Oops!</h2>
+
+Something went wrong...
+
+
+@if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+{
+    <div class="alert alert-danger" role="alert">
+        <a class="close" data-dismiss="alert">×</a>
+        @foreach (ModelError modelError in Html.ViewData.ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+        {
+            <p>@modelError.ErrorMessage</p>
+        }
+    </div>
+}

@@ -1,0 +1,255 @@
+﻿@using audio_optio.Domain;
+@model audio_optio.Models.PaymentModel
+
+@using (Html.BeginForm("Pay", "Order", FormMethod.Post))
+{
+    if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
+    {
+        <div class="alert alert-danger" role="alert">
+            <a class="close" data-dismiss="alert">×</a>
+            @foreach (ModelError modelError in Html.ViewData.ModelState.SelectMany(keyValuePair => keyValuePair.Value.Errors))
+            {
+                <p>@modelError.ErrorMessage</p>
+            }
+        </div>
+    }
+
+    <div>
+        <h2>Order Information</h2>
+        @Html.HiddenFor(m => m.contactOrder.contact.Id)
+        @Html.HiddenFor(m => m.contactOrder.order.Id)
+        <div class="row">
+            <div class="col-md-3"><strong>@Html.Label("Name")</strong></div>
+            <div class="col-md-9">@Model.contactOrder.contact.FirstName @Model.contactOrder.contact.LastName</div>
+            @Html.HiddenFor(m => m.contactOrder.contact.FirstName)
+            @Html.HiddenFor(m => m.contactOrder.contact.LastName)
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"><strong>@Html.Label("E-mail Address")</strong></div>
+            <div class="col-md-9">@Model.contactOrder.contact.Email</div>
+            @Html.HiddenFor(m => m.contactOrder.contact.Email)
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"><strong>@Html.Label("Phone Number")</strong></div>
+            <div class="col-md-9">@Model.contactOrder.contact.Phone</div>
+            @Html.HiddenFor(m => m.contactOrder.contact.Phone)
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"><strong>@Html.Label("Youtube Link")</strong></div>
+            <a class="col-md-9" href="@Model.contactOrder.order.YoutubeLink.ToString()">@Model.contactOrder.order.YoutubeLink.ToString()</a>
+            @Html.HiddenFor(m => m.contactOrder.order.YoutubeLink)
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"><strong>@Html.Label("Comments")</strong></div>
+            <div class="col-md-9">@Model.contactOrder.order.Comments</div>
+            @Html.HiddenFor(m => m.contactOrder.order.Comments)
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"><strong>@Html.Label("Date")</strong></div>
+            <div class="col-md-9">@Model.contactOrder.order.DateSubmitted.ToString("MM/dd/YYYY")</div>
+            @Html.HiddenFor(m => m.contactOrder.order.DateSubmitted)
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"><strong>@Html.Label("Canvas Size")</strong></div>
+            <div class="col-md-9">@Order.GetCanvasDescription(@Model.contactOrder.order.Size)</div>
+            @Html.HiddenFor(m => m.contactOrder.order.Size)
+        </div>
+
+        <div class="row">
+            <div class="col-md-3"><strong>@Html.Label("Order Total")</strong></div>
+            <div class="col-md-9">$@Model.Price USD</div>
+            @Html.HiddenFor(m => m.Price)
+        </div>
+
+    </div>
+
+    <hr />
+
+    <div id="billing_address">
+        <h2>Billing Address</h2>
+        <div class="row">
+            <div class="col-md-3">Address Line 1</div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.BillingAddress.line1, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-3">Address Line 2</div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.BillingAddress.line2, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1">City</div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.BillingAddress.city, new { @class = "form-control" })
+            </div>
+            <div class="col-md-1">State</div>
+            <div class="col-md-2">
+                @Html.DropDownListFor(model => model.BillingAddress.state, EnumHelper.GetSelectList(typeof(audio_optio.Models.PaymentModel.State)),
+   new { @class = "form-control" })
+            </div>
+            <div class="col-md-1">Postal Code</div>
+            <div class="col-md-2">
+                @Html.TextBoxFor(model => model.BillingAddress.postal_code, new { @class = "form-control" })
+                @Html.HiddenFor(model => model.BillingAddress.country_code)
+            </div>
+        </div>
+    </div>
+
+
+    <hr />
+
+    <div>
+        <h2>Shipping Address</h2>
+        @Html.CheckBoxFor(m => m.sameAddress, new { id = "same" })<span> Same as Billing Address</span>
+
+        <div id="shipping_address">
+            <div class="row">
+                <div class="col-md-3">Address Line 1</div>
+                <div class="col-md-9">
+                    @Html.TextBoxFor(model => model.ShippingAddress.line1, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3">Address Line 2</div>
+                <div class="col-md-9">
+                    @Html.TextBoxFor(model => model.ShippingAddress.line2, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-2">City</div>
+                <div class="col-md-2">
+                    @Html.TextBoxFor(model => model.ShippingAddress.city, new { @class = "form-control" })
+                </div>
+                <div class="col-md-2">State</div>
+                <div class="col-md-2">
+                    @Html.DropDownListFor(model => model.ShippingAddress.state, EnumHelper.GetSelectList(typeof(audio_optio.Models.PaymentModel.State)),
+   new { @class = "form-control" })
+                </div>
+                <div class="col-md-2">Postal Code</div>
+                <div class="col-md-2">
+                    @Html.TextBoxFor(model => model.ShippingAddress.postal_code, new { @class = "form-control" })
+                    @Html.HiddenFor(model => model.ShippingAddress.country_code)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr />
+
+    @*<h2>Payment Method</h2>
+            <div id="cc">
+                 <div class="row">
+                     <div class="col-sm-1">
+                         @Html.RadioButtonFor(model => model.payPaypal, false, new { name = "paypal", id = "pay_cc", @checked="checked" })
+                     </div>
+                     <div class="col-sm-pull-12">
+                         <span>Pay with Credit Card</span>
+                     </div>
+                 </div>
+
+                 <div id="cc_fields">
+                     <div class="row">
+                         <div class="col-md-3">First Name</div>
+                         <div class="col-md-9">
+                             @Html.TextBoxFor(model => model.CreditCard.first_name, new { @class = "form-control" })
+                         </div>
+                     </div>
+
+                     <div class="row">
+                         <div class="col-md-3">Last Name</div>
+                         <div class="col-md-9">
+                             @Html.TextBoxFor(model => model.CreditCard.last_name, new { @class = "form-control" })
+                         </div>
+                     </div>
+
+                     <div class="row">
+                         <div class="col-md-3">Credit Card Type</div>
+                         <div class="col-md-9">
+                             @Html.TextBoxFor(model => model.CreditCard.last_name, new { @class = "form-control" })
+                         </div>
+                     </div>
+
+                     <div class="row">
+                         <div class="col-md-2">CVV</div>
+                         <div class="col-md-2">
+                             @Html.TextBoxFor(model => model.CreditCard.cvv2, new { @class = "form-control" })
+                         </div>
+
+                         <div class="col-md-2">Expiration Month</div>
+                         <div class="col-md-2">
+                             @Html.TextBoxFor(model => model.CreditCard.expire_month, new { type = "number", min = "1", max = "12", @Value="1" })
+                         </div>
+
+
+                         <div class="col-md-2">Expiration Year</div>
+                         <div class="col-md-2">
+                             @Html.TextBoxFor(model => model.CreditCard.expire_year, new { type = "number", min = "2017", max = "2060", @Value="2017" })
+                         </div>
+                     </div>
+                 </div>
+
+             </div>
+
+        <div id="paypal">
+            <div class="row">
+                <div class="col-sm-1">
+                    @Html.RadioButtonFor(model => model.payPaypal, true, new { name = "paypal", id = "pay_paypal" })
+                </div>
+                <div class="col-sm-pull-12">
+                    <span>Pay with Paypal</span>
+                </div>
+            </div>
+
+        </div>*@
+    <input class="transition-button" type="submit" value="Pay with Paypal" />
+
+}
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#same").click(function () {
+            if ($("#same").prop("checked")) {
+                $("#shipping_address").hide(1000);
+            }
+            else {
+                $("#shipping_address").show(1000);
+            }
+        })
+
+        $("#pay_cc").click(function () {
+
+            if ($("#pay_cc").prop("checked")) {
+                $("#cc_fields").show(1000);
+            }
+            else {
+                $("#cc_fields").hide(1000);
+            }
+
+        });
+
+        $("#pay_paypal").click(function () {
+
+            if ($("#pay_paypal").prop("checked")) {
+                $("#cc_fields").hide(1000);
+            }
+            else {
+                $("#cc_fields").show(1000);
+            }
+
+        });
+
+    })
+</script>

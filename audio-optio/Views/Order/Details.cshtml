@@ -1,0 +1,51 @@
+﻿@model audio_optio.Domain.Order
+
+<h1>Order Details</h1>
+
+<div class="row">
+    <div class="col-lg-12 alert alert-success">
+        Thank you for your order!  
+        Your details have been submitted and payment was successful.  
+        Ryan will be in contact with you shortly.
+    </div>
+</div>
+
+<h2>Contact Information</h2>
+<div class="row">
+    <div class="col-lg-3">Name </div>
+    <div class="col-lg-6">@Model.Contact.FirstName @Model.Contact.LastName</div>
+</div>
+<div class="row">
+    <div class="col-lg-3">Email </div>
+    <div class="col-lg-6">@Model.Contact.Email</div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3">Phone Number </div>
+    <div class="col-lg-6">@Model.Contact.Phone</div>
+</div>
+
+<hr />
+<h2>Order Information</h2>
+<div class="row">
+    <div class="col-lg-3">Youtube Link </div>
+    <div class="col-lg-6"><a href="@Model.YoutubeLink">@Model.YoutubeLink</a> </div>
+</div>
+<div class="row">
+    <div class="col-lg-3">Comments </div>
+    <div class="col-lg-6">@Model.Comments</div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3">Date Submitted</div>
+    <div class="col-lg-6">@Model.OrderStatus.ToString() </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-3">Date Submitted</div>
+    <div class="col-lg-6">@Model.DateSubmitted.ToString() </div>
+</div>
+
+
+
+
