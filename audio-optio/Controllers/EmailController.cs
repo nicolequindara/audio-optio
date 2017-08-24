@@ -77,7 +77,7 @@ namespace audio_optio.Controllers
         /// <param name="model"></param>
         public void SendNotification(ContactOrderModel model)
         {
-            MailMessage mail = CreateEmail("Thank you for contacting Audio Optio", model.contact.Email);
+            MailMessage mail = CreateEmail("Order Confirmation from Audio Optio", model.contact.Email);
 
             string body;
             // Read the file and display it line by line.
