@@ -47,6 +47,7 @@ namespace audio_optio.Controllers
 
                     model.comment.Contact = c;
                     comments.Insert(model.comment);
+                    model.success = true;
 
                     // Send notification
                     try
@@ -56,9 +57,9 @@ namespace audio_optio.Controllers
                     catch(Exception e)
                     {
                         ModelState.AddModelError("E-mail Error", e.Message);
+                        model.success = false;
                     }
 
-                    model.success = true;
                     return Update(model);
                 }
                 else

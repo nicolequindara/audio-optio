@@ -1,0 +1,133 @@
+﻿<html>
+	<head>
+		<style>
+
+			body
+			{{
+				font-family: 'Arial', sans-serif;
+				font-size:20px;
+				padding:50px;
+				text-align:center;
+			}}
+			
+			h1
+			{{
+				font-family: 'Arial', cursive;
+			}}
+			
+			.main
+			{{
+				border: solid 1px gray;
+				padding:50px;
+			}}
+			
+			img
+			{{
+				height:75px;
+				display:block;
+				margin:10px auto;
+			}}
+			
+			p
+			{{
+				margin-top: 30px;
+			}}
+			
+			.signature
+			{{
+			font-size:50px;
+				font-family: 'Arial', cursive;
+			}}
+			
+			.footer
+			{{
+				font-size: 12px;
+			}}
+			
+			.details
+			{{
+				font-size: 16px;
+				color: #606060;
+			}}
+			
+			.bighello
+			{{
+				padding:50px;
+				display:0px auto;
+				text-align:center;
+			
+			}}
+			
+			table
+			{{
+				width:80%;
+				text-align:center;
+			}}
+			
+		</style>
+	</head>
+	<body>
+		<div class='main text-center'>
+			<div class='bighello text-center' style='background-color:#383838; color:white;'>
+				<h1>Hi, {0}!</h1>
+			</div>
+						
+			<h1>Thank you sincerely for visiting Audio Optio!  </h1>
+			<p>
+			You made the time to check out my website, and I promise I'll make the time to personally respond to you.
+			In the meantime, I hope you're listening to something cool that you'd like to see.
+			</p>
+			
+			<h1>Your order details:</h1>
+			<div class='details'>
+			<table>
+				<tr>
+					<td>Date Submitted</td>
+					<td>{1}</td>
+				</tr>
+				<tr>
+					<td>Name</td>
+					<td>{2}</td>
+				</tr>
+				<tr>
+					<td>E-mail</td>
+					<td>{3}</td>
+				</tr>
+				<tr>
+					<td>Phone</td>
+					<td>{4}</td>
+				</tr>
+				<tr>
+					<td>Youtube Link</td>
+					<td>{5}</td>
+				</tr>
+				<tr>
+					<td>Comments</td>
+					<td>{6}</td>
+				</tr>
+				<tr>
+					<td>Size</td>
+					<td>{7}</td>
+				</tr>
+			</table>
+			</div>
+						
+			<p>Happy synesthesia!</p>
+			<div class='signature'>Ryan</div>
+			
+			<div class='footer text-center'>
+				<img class=img-responsive' src='{8}dark-to-light-logo.png'>
+				<div class='row'>
+					<div>
+						<a href='mailto:audio.optio@gmail.com?Subject='Hello''>audio.optio@gmail.com</a>
+					</div>
+				</div>
+				<div>
+					<div>
+						<a href='www.audio-optio.science'>www.audio-optio.science</a>
+					</div>
+				</div>
+			</div>
+		</div>			
+	</body>
+</html>

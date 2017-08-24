@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Net.Mail;
 using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+using System.Text.RegularExpressions;
+using System.IO;
 using System.Web.Mvc;
 
-using audio_optio.App_Data;
 
+using audio_optio.Domain;
+using audio_optio.App_Data;
 using audio_optio.Models;
 
 namespace audio_optio.Controllers
@@ -33,32 +33,34 @@ namespace audio_optio.Controllers
             client_.Credentials = new System.Net.NetworkCredential(orderEmail_, pw_);
         }
 
+        private MailMessage CreateEmail(string subject, string to)
+        {
+            MailMessage mail = new MailMessage(orderEmail_, orderEmail_);
+            mail.Bcc.Add(new MailAddress(to));
+            mail.Subject = subject;
+            mail.IsBodyHtml = true;
+
+            return mail;
+        }
+
         /// <summary>
         /// Send contact notification
         /// </summary>
         /// <param name="model">ContactCommentModel contains contact information and comment</param>
         public void SendNotification(ContactCommentModel model)
         {
-            // Send to/from business e-mail
-            MailMessage mail = new MailMessage(orderEmail_, orderEmail_);
-            // Blind copy contacter
-            mail.Bcc.Add(new MailAddress(model.contact.Email));
+            MailMessage mail = CreateEmail("Thank you for contacting Audio Optio", model.contact.Email);
+
+            string body;
+            // Read the file and display it line by line.
+            using (StreamReader sr = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + @"/Templates/CommentEmail.txt"))
+            {
+                body = sr.ReadToEnd();
+            }
+
+            body = Regex.Replace(body, @"\t|\n|\r", "");
+            mail.Body = string.Format(body, model.contact.FirstName, model.comment.Text, AppDomain.CurrentDomain.BaseDirectory + "Images\\");
             
-            mail.Subject = "Thank you for contacting Audio-Optio";
-
-            StringBuilder body = new StringBuilder();
-            body.AppendLine("Thank you sincerely for visiting Audio-Optio. We appreciate your comments and questions.  Ryan will be in touch with you shortly!");
-            body.AppendLine();
-            body.AppendLine(string.Format("Submitted:\t{0}", model.comment.DateSubmitted.ToString()));
-            body.AppendLine(string.Format("Name:\t{0} {1}", model.contact.FirstName, model.contact.LastName));
-            body.AppendLine(string.Format("E-mail:\t{0}", model.contact.Email));
-            body.AppendLine(string.Format("Phone:\t{0}", model.contact.Phone));
-            body.AppendLine(string.Format("Comments:\t{0}", model.comment.Text));
-
-            createFooter(ref body);
-
-            mail.Body = body.ToString();
-
             try
             {
                 client_.Send(mail);
@@ -75,24 +77,28 @@ namespace audio_optio.Controllers
         /// <param name="model"></param>
         public void SendNotification(ContactOrderModel model)
         {
-            MailMessage mail = new MailMessage(orderEmail_, orderEmail_);
-            mail.Bcc.Add(new MailAddress(model.contact.Email));
-            mail.Subject = "Audio-Optio Order Confirmation";
+            MailMessage mail = CreateEmail("Thank you for contacting Audio Optio", model.contact.Email);
 
-            StringBuilder body = new StringBuilder();
-            body.AppendLine(string.Format("Thank you for your order.  Please confirm your order details and contact {0} with any corrections.", orderEmail_));
-            body.AppendLine();
-            body.AppendLine(string.Format("Submitted:\t{0}", model.order.DateSubmitted.ToString()));
-            body.AppendLine(string.Format("Name:\t{0} {1}", model.contact.FirstName, model.contact.LastName));
-            body.AppendLine(string.Format("E-mail:\t{0}", model.contact.Email));
-            body.AppendLine(string.Format("Phone:\t{0}", model.contact.Phone));
-            body.AppendLine(string.Format("Youtube Link:\t{0}", model.order.YoutubeLink));
-            body.AppendLine(string.Format("Comments:\t{0}", model.order.Comments));
-            body.AppendLine(string.Format("Size:\t{0}", audio_optio.Domain.Order.GetCanvasDescription(model.order.Size)));
+            string body;
+            // Read the file and display it line by line.
+            using (StreamReader sr = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + @"/Templates/OrderEmail.txt"))
+            {
+                body = sr.ReadToEnd();
+            }
 
-            createFooter(ref body);
-
-            mail.Body = body.ToString();
+            body = Regex.Replace(body, @"\t|\n|\r", "");
+            StringBuilder addressSb = new StringBuilder();
+            
+            mail.Body = string.Format(body, model.contact.FirstName, 
+                model.order.DateSubmitted,
+                model.contact.FirstName + " " + model.contact.LastName,
+                model.contact.Email,
+                model.contact.Phone,
+                model.order.YoutubeLink,
+                model.order.Comments,
+                Order.GetCanvasDescription(model.order.Size),
+                
+                AppDomain.CurrentDomain.BaseDirectory + "Images\\");
 
             try
             {
@@ -104,18 +110,6 @@ namespace audio_optio.Controllers
             }
         }
 
-
-        /// <summary>
-        /// Create footer
-        /// </summary>
-        /// <param name="sb">Body text as StringBuilder</param>
-        private void createFooter(ref StringBuilder sb)
-        {
-            sb.AppendLine();
-            sb.AppendLine("Audio-Optio");
-            sb.AppendLine("www.audio-optio.science");
-            sb.AppendLine(orderEmail_);
-        }
     }
 
 }
