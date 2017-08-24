@@ -121,6 +121,7 @@ namespace audio_optio.Controllers
 
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Pay(PaymentModel model)
         {
             model.Format();
