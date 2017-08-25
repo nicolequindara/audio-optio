@@ -59,7 +59,7 @@ namespace audio_optio.Controllers
             }
 
             body = Regex.Replace(body, @"\t|\n|\r", "");
-            mail.Body = string.Format(body, model.contact.FirstName, model.comment.Text, AppDomain.CurrentDomain.BaseDirectory + "Images\\");
+            mail.Body = string.Format(body, model.contact.FirstName, model.comment.Text);
             
             try
             {
@@ -96,9 +96,7 @@ namespace audio_optio.Controllers
                 model.contact.Phone,
                 model.order.YoutubeLink,
                 model.order.Comments,
-                Order.GetCanvasDescription(model.order.Size),
-                
-                AppDomain.CurrentDomain.BaseDirectory + "Images\\");
+                Order.GetCanvasDescription(model.order.Size));
 
             try
             {

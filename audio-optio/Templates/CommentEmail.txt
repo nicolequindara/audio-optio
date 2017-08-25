@@ -1,18 +1,20 @@
 ﻿<html>
 	<head>
+		<link href="https://fonts.googleapis.com/css?family=Grand+Hotel|Josefin+Sans|Sacramento" rel="stylesheet">
 		<style>
-
+			@import url('https://fonts.googleapis.com/css?family=Grand+Hotel|Josefin+Sans|Sacramento');
 			body
 			{{
-				font-family: 'Arial', sans-serif;
+				font-family: 'Josefin Sans', 'Arial', sans-serif;
 				font-size:20px;
 				padding:50px;
 				text-align:center;
+				border:solid 1px gray;
 			}}
 			
 			h1
 			{{
-				font-family: 'Arial', cursive;
+				font-family: 'Grand Hotel', 'Arial', sans-serif;
 			}}
 			
 			.main
@@ -35,8 +37,8 @@
 			
 			.signature
 			{{
-			font-size:50px;
-				font-family: 'Arial', cursive;
+				font-size:50px;
+				font-family: 'Sacramento', 'Arial', sans-serif;
 			}}
 			
 			.footer
@@ -66,22 +68,22 @@
 				<h1>Hi, {0}!</h1>
 			</div>
 						
-			<h1>Thank you sincerely for visiting Audio Optio!  </h1>
+			<h2>Thank you sincerely for visiting Audio Optio! </h2>
 			<p>
 			You made the time to check out my website, and I promise I'll make the time to personally respond to you.
 			In the meantime, I hope you're listening to something cool that you'd like to see.
 			</p>
 			
-			<h1>Your comment:</h1>
+			<h2>Your comment:</h2>
 			<div class='details'>{1}</div>
 			
 			
 			
-			<p>Happy synesthesia!</p>
+			<h2>Happy synesthesia!</h2>
 			<div class='signature'>Ryan</div>
 			
 			<div class='footer text-center'>
-				<img class=img-responsive' src='{2}dark-to-light-logo.png'>
+				<img src='http://www.audio-optio.science/Images/dark-to-light-logo.png'/>
 				<div class='row'>
 					<div>
 						<a href='mailto:audio.optio@gmail.com?Subject='Hello''>audio.optio@gmail.com</a>
