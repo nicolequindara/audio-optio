@@ -17,6 +17,7 @@ namespace audio_optio.Controllers
 {
     public class OrderController : Controller
     {
+        private const string discountCode = "musical0275friendship";
 
         private Payment payment;
 
@@ -44,7 +45,7 @@ namespace audio_optio.Controllers
         // GET: Order
         public ActionResult Index()
         {
-            return View();
+            return View(orders.Get() as List<Order>);
         }
 
         // GET: Order/Details/5
@@ -67,44 +68,41 @@ namespace audio_optio.Controllers
         {
             model.success = false;
 
-            try
+            if (ModelState.IsValid)
             {
+                model.contact.Format();
 
-                if (ModelState.IsValid)
+                if (!String.IsNullOrEmpty(model.order.DiscountCode) && !model.order.DiscountCode.Equals(discountCode))
                 {
-                    model.contact.Format();
-
-                    model.success = true;
-
-                    Contact c = contacts.Get(model.contact.FirstName, model.contact.LastName);
-                    if (c == null)
-                    {
-                        c = model.contact;
-                        contacts.Insert(c);
-                    }
-
-                    contacts.Update(c);
-
-                    model.order.Contact = c;
-                    model.order.DateSubmitted = DateTime.Now;
-                    orders.Insert(model.order);
-
-                    return CreatePayment(model);
-                }
-                else
-                {
-                    throw new Exception();
+                    model.success = false;
+                    ModelState.AddModelError("Discount Code", "Discount code is invalid or expired.");
+                    return View("Order", model);
                 }
 
+                model.success = true;
+
+                Contact c = contacts.Get(model.contact.FirstName, model.contact.LastName);
+                if (c == null)
+                {
+                    c = model.contact;
+                    contacts.Insert(c);
+                }
+
+                contacts.Update(c);
+
+                model.order.Contact = c;
+                model.order.DateSubmitted = DateTime.Now;
+                orders.Insert(model.order);
+
+                return CreatePayment(model);
             }
-            catch (Exception e)
+            else
             {
                 model.success = false;
-                ModelState.AddModelError("UnhandledException", e.Message);
                 return Update(model);
             }
         }
-        
+
         public ActionResult Update(ContactOrderModel model)
         {
             return View("Order", model);
@@ -115,6 +113,14 @@ namespace audio_optio.Controllers
         {
             PaymentModel m = new PaymentModel { contactOrder = contactOrder };
             m.Price = m.contactOrder == null ? 0.0f : ContactOrderModel.getPrice(m.contactOrder.order.Size);
+            
+            // Evaluate discount code
+            if (!String.IsNullOrEmpty(contactOrder.order.DiscountCode) && contactOrder.order.DiscountCode.ToLower().Equals("musical0275friendship"))
+            {
+                m.discountApplied = true;
+                m.Price *= .7f;
+            }
+
             m.contactOrder.order.OrderStatus = audio_optio.Domain.Order.Status.Pending;
             return View("Pay", m);
         }
@@ -163,7 +169,9 @@ namespace audio_optio.Controllers
             //Now Create an object of credit card and add above details to it
             //Please replace your credit card details over here which you got from paypal
             CreditCard cc = model.CreditCard;
+            model.BillingAddress.country_code = "US";
             cc.billing_address = model.BillingAddress;
+            
       
             // Now we need to specify the FundingInstrument of the Payer
             // for credit card payments, set the CreditCard which we made above

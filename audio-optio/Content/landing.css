@@ -1,0 +1,82 @@
+﻿.aligner {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background-image: url('../../Images/landing_desaturated.jpg');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    transition: background 3s ease-in;
+    margin-left: -10px;
+    margin-top: -10px;
+    margin-right: -10px;
+}
+
+.absolute-center {
+    /* Internet Explorer 10 */
+    display: -ms-flexbox;
+    -ms-flex-pack: center;
+    -ms-flex-align: center;
+    /* Firefox */
+    display: -moz-box;
+    -moz-box-pack: center;
+    -moz-box-align: center;
+    /* Safari, Opera, and Chrome */
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    /* W3C */
+    display: box;
+    box-pack: center;
+    box-align: center;
+    
+    min-width:0;
+}
+
+button {
+    transition: all 2s;
+    cursor: pointer;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 20px;
+    display: block;
+    margin: 50px auto;
+    font-family: 'Lobster-Regular';
+    background-color: #008B8B;
+    color: white;
+    border: solid 5px white;
+}
+
+    button:hover {
+        border-color: #008B8B;
+        background-color: white;
+        color: #008B8B;
+    }
+
+    .faded-bg{
+        
+        background-color:rgba(0,0,0,0.3);
+        width:100%;
+        padding:50px 0px 50px 0px;
+    }
+
+
+h1 {
+    font-size: 60px;
+    margin: 2px;
+    color: white;
+    font-family: 'Lobster-Regular';
+}
+
+h2 {
+    font-size: 25px;
+    margin: 0px;
+    font-family: 'Montserrat-Regular';
+    color: white;
+}

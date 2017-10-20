@@ -1,6 +1,13 @@
 ﻿@using audio_optio.Domain;
 @model audio_optio.Models.PaymentModel
 
+<style>
+    label
+    {
+        font-weight:bold;
+    }
+</style>
+
 @using (Html.BeginForm("Pay", "Order", FormMethod.Post))
 {
     if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
@@ -67,6 +74,15 @@
             @Html.HiddenFor(m => m.Price)
         </div>
 
+        @if (Model.discountApplied)
+        {
+            <div class="row">
+                <div class="col-md-12 alert alert-success">
+                    30% discount applied!
+                </div>
+            </div>
+        }
+
     </div>
 
     <hr />
@@ -74,25 +90,25 @@
     <div id="billing_address">
         <h2>Billing Address</h2>
         <div class="row">
-            <div class="col-md-3">Address Line 1</div>
+            <div class="col-md-3"><label>Address Line 1</label></div>
             <div class="col-md-9">
                 @Html.TextBoxFor(model => model.BillingAddress.line1, new { @class = "form-control" })
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-3">Address Line 2</div>
+            <div class="col-md-3"><label>Address Line 2</label></div>
             <div class="col-md-9">
                 @Html.TextBoxFor(model => model.BillingAddress.line2, new { @class = "form-control" })
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-1">City</div>
+            <div class="col-md-1"><label>City</label></div>
             <div class="col-md-2">
                 @Html.TextBoxFor(model => model.BillingAddress.city, new { @class = "form-control" })
             </div>
-            <div class="col-md-1">State</div>
+            <div class="col-md-1"><label>State</label></div>
             <div class="col-md-2">
                 @Html.DropDownListFor(model => model.BillingAddress.state,
                Enum.GetValues(typeof(audio_optio.Models.PaymentModel.State)).Cast<audio_optio.Models.PaymentModel.State>().Select(v => new SelectListItem
@@ -101,7 +117,7 @@
                    Value = v.ToString()
                }).ToList(), new { @class = "form-control" })
             </div>
-            <div class="col-md-1">Postal Code</div>
+            <div class="col-md-1"><label>Postal Code</label></div>
             <div class="col-md-2">
                 @Html.TextBoxFor(model => model.BillingAddress.postal_code, new { @class = "form-control" })
                 @Html.HiddenFor(model => model.BillingAddress.country_code)
@@ -114,34 +130,34 @@
 
     <div>
         <h2>Shipping Address</h2>
-        @Html.CheckBoxFor(m => m.sameAddress, new { id = "same" })<span> Same as Billing Address</span>
+        @Html.CheckBoxFor(m => m.sameAddress, new { id = "same" })<span> <label>Same as Billing Address</label></span>
 
         <div id="shipping_address">
             <div class="row">
-                <div class="col-md-3">Address Line 1</div>
+                <div class="col-md-3"><label>Address Line 1</label></div>
                 <div class="col-md-9">
                     @Html.TextBoxFor(model => model.ShippingAddress.line1, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-3">Address Line 2</div>
+                <div class="col-md-3"><label>Address Line 2</label></div>
                 <div class="col-md-9">
                     @Html.TextBoxFor(model => model.ShippingAddress.line2, new { @class = "form-control" })
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-md-2">City</div>
+                <div class="col-md-2"><label>City</label></div>
                 <div class="col-md-2">
                     @Html.TextBoxFor(model => model.ShippingAddress.city, new { @class = "form-control" })
                 </div>
-                <div class="col-md-2">State</div>
+                <div class="col-md-2"><label>State</label></div>
                 <div class="col-md-2">
                     @Html.DropDownListFor(model => model.ShippingAddress.state, EnumHelper.GetSelectList(typeof(audio_optio.Models.PaymentModel.State)),
    new { @class = "form-control" })
                 </div>
-                <div class="col-md-2">Postal Code</div>
+                <div class="col-md-2"><label>Postal Code</label></div>
                 <div class="col-md-2">
                     @Html.TextBoxFor(model => model.ShippingAddress.postal_code, new { @class = "form-control" })
                     @Html.HiddenFor(model => model.ShippingAddress.country_code)
@@ -155,43 +171,43 @@
     <h2>Payment Method</h2>
     <div class="row">
         <div class="col-md-1 text-right">
-            @Html.RadioButtonFor(model => model.payPaypal, false, new { name = "paypal", id = "pay_cc", @checked = "checked" })
-        </div>
-        <div class="col-md-4">
-            <span>Pay with Credit Card</span>
-        </div>
+                @Html.RadioButtonFor(model => model.payPaypal, false, new { name = "paypal", id = "pay_cc", @checked = "checked" })
+            </div>
+            <div class="col-md-4">
+                <span><label>Pay with Credit Card</label></span>
+            </div>
         <div class="col-md-1 text-right">
             @Html.RadioButtonFor(model => model.payPaypal, true, new { name = "paypal", id = "pay_paypal" })
         </div>
         <div class="col-md-4">
-            <span>Pay with Paypal</span>
+            <span><label>Pay with Paypal</label></span>
         </div>
     </div>
 
     <div id="cc_fields">
         <div class="row">
-            <div class="col-md-3">First Name</div>
+            <div class="col-md-3"><label>First Name</label></div>
             <div class="col-md-9">
                 @Html.TextBoxFor(model => model.CreditCard.first_name, new { @class = "form-control" })
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-3">Last Name</div>
+            <div class="col-md-3"><label>Last Name</label></div>
             <div class="col-md-9">
                 @Html.TextBoxFor(model => model.CreditCard.last_name, new { @class = "form-control" })
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-3">Credit Card Number</div>
+            <div class="col-md-3"><label>Credit Card Number</label></div>
             <div class="col-md-9">
                 @Html.TextBoxFor(model => model.CreditCard.number, new { @class = "form-control" })
             </div>
         </div>
 
         <div class="row">
-            <div class="col-md-1">Credit Card Type</div>
+            <div class="col-md-1"><label>Credit Card Type</label></div>
             <div class="col-md-2">
                 @Html.DropDownListFor(model => model.CreditCard.type, new SelectListItem[] {
                    new SelectListItem() { Value = "visa", Text = "Visa" },
@@ -200,24 +216,24 @@
                    new SelectListItem() { Value = "amex", Text = "Amex" }}, new { @class = "form-control" })
             </div>
 
-            <div class="col-md-1">CVV</div>
+            <div class="col-md-1"><label>CVV</label></div>
             <div class="col-md-2">
-                @Html.TextBoxFor(model => model.CreditCard.cvv2, new { type = "number", min = "000", max = "999", @Value = "000", @class = "form-control" })
+                @Html.TextBoxFor(model => model.CreditCard.cvv2, new { type = "number", min = "000", max = "9999", @Value = "000", @class = "form-control" })
             </div>
 
-            <div class="col-md-1">Expiration Month</div>
+            <div class="col-md-1"><label>Expiration Month</label></div>
             <div class="col-md-2">
                 @Html.TextBoxFor(model => model.CreditCard.expire_month, new { type = "number", min = "1", max = "12", @Value = "1", @class = "form-control" })
             </div>
 
 
-            <div class="col-md-1">Expiration Year</div>
+            <div class="col-md-1"><label>Expiration Year</label></div>
             <div class="col-md-2">
                 @Html.TextBoxFor(model => model.CreditCard.expire_year, new { type = "number", min = "2017", max = "2060", @Value = "2017", @class = "form-control" })
             </div>
         </div>
     </div>
-    
+
     @Html.AntiForgeryToken()
     <input class="transition-button" type="submit" value="Submit Payment" />
 

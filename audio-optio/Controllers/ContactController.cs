@@ -30,44 +30,37 @@ namespace audio_optio.Controllers
         {
             model.success = false;
 
-            try
+            if (ModelState.IsValid)
             {
-                if (ModelState.IsValid)
+                model.contact.Format();
+
+                Contact c = contacts.Get(model.contact.FirstName, model.contact.LastName);
+                if (c == null)
                 {
-                    model.contact.Format();
-
-                    Contact c = contacts.Get(model.contact.FirstName, model.contact.LastName);
-                    if (c == null)
-                    {
-                        c = model.contact;
-                        contacts.Insert(c);
-                    }
-
-                    contacts.Update(c);
-
-                    model.comment.Contact = c;
-                    comments.Insert(model.comment);
-                    model.success = true;
-
-                    // Send notification
-                    try
-                    {
-                        new EmailController().SendNotification(model);
-                    }
-                    catch(Exception e)
-                    {
-                        ModelState.AddModelError("E-mail Error", e.Message);
-                        model.success = false;
-                    }
-
-                    return Update(model);
+                    c = model.contact;
+                    contacts.Insert(c);
                 }
-                else
+
+                contacts.Update(c);
+
+                model.comment.Contact = c;
+                comments.Insert(model.comment);
+                model.success = true;
+
+                // Send notification
+                try
                 {
-                    return Update(model);
+                    new EmailController().SendNotification(model);
                 }
+                catch (Exception e)
+                {
+                    ModelState.AddModelError("E-mail Error", e.Message);
+                    model.success = false;
+                }
+
+                return Update(model);
             }
-            catch(Exception e)
+            else
             {
                 model.success = false;
                 return Update(model);

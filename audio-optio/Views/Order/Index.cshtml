@@ -1,0 +1,37 @@
+﻿@using audio_optio.Domain
+@model List<Order>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="table-responsive">
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td></td>
+            <td>Date Submitted</td>
+            <td>Youtube Link</td>
+            <td>Comments</td>
+            <td>Canvas Size</td>
+            <td>Status</td>
+        </tr>
+    </thead>
+
+    @foreach (Order order in Model)
+    {
+        <tr>
+            <td>@order.Contact.FirstName @order.Contact.LastName</td>
+            <td></td>
+            <td>@order.DateSubmitted</td>
+            <td><a href='@order.YoutubeLink'>@order.YoutubeLink</a></td>
+            <td>@order.Comments</td>
+            <td>@Order.GetCanvasDescription(@order.Size)</td>
+            <td>@order.OrderStatus</td>
+        </tr>
+    }
+
+    <div class="table-responsive">
+</table>

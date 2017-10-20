@@ -1,32 +1,13 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 
-    Layout = "~/Views/Shared/_NoNavLayout.cshtml";
-
+    Layout = "~/Views/Shared/_LandingLayout.cshtml";
 }
 
-<div class="container">
-    <div id="logo">        
-        <h1>Audio Optio</h1>
+<div class="aligner">
+    <div class="faded-bg">
+        <h1 style="display:block;">Audio Optio</h1>
+        <h2>Music to your Eyes</h2>
     </div>
-
-    <div class="row menu_item" id="about" onclick="location.href='@Url.Action("About", "Home")'"/>
-        <div class='col-lg-12'> <h1>About</h1> </div>
-        <div class='col-lg-12'><span>Learn about audio-optio, the visual art of music</span> </div>
-    </div>
-
-
-    <div class="row menu_item" id="gallery" onclick="location.href='@Url.Action("Gallery", "Home")'">
-        <div class='col-lg-12'> <h1>Gallery</h1> </div>
-        <div class='col-lg-12'><span>View samples</span> </div>
-    </div>
-
-    <div class="row menu_item" id="contact" onclick="location.href='@Url.Action("Order", "Order")'">
-        <div class='col-lg-12'> <h1>Order</h1> </div>
-        <div class='col-lg-12'><span>Convert your song into visual art</span> </div>
-    </div>
-
-<div class="row menu_item" id="services" onclick="location.href='@Url.Action("Contact", "Contact")'">
-    <div class='col-lg-12'> <h1>Contact</h1> </div>
-    <div class='col-lg-12'><span>Send comments or questions</span> </div>
+    <button type="button" onclick="location.href='@Url.Action("Order",  "Order")'">Order Now</button>
 </div>

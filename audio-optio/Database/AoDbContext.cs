@@ -15,5 +15,6 @@ namespace audio_optio.Database
         public virtual DbSet<Contact> Contacts { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<User> Users { get;  set; }
     }
 }

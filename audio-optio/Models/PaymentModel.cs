@@ -85,6 +85,7 @@ namespace audio_optio.Models
         public bool payPaypal { get; set; }
         public bool sameAddress { get; set; }
         public bool success { get; set; }
+        public bool discountApplied { get; set; }
 
         public ContactOrderModel contactOrder { get; set; }
 
@@ -96,8 +97,10 @@ namespace audio_optio.Models
 
         public float Price { get; set; }
 
+        
         public PaymentModel()
         {
+            discountApplied = false;
             payPaypal = true;
             sameAddress = false;
             success = false;

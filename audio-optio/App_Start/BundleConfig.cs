@@ -29,7 +29,11 @@ namespace audio_optio
 
             bundles.Add(new ScriptBundle("~/bundles/fancybox").Include(
                      "~/Scripts/jquery.fancybox.js"));
+
             
+            bundles.Add(new ScriptBundle("~/bundles/landing").Include(
+                     "~/Scripts/landing.js"));
+
             bundles.Add(new StyleBundle("~/Content/fonts").Include(
                       "~/Content/fonts.css"));
 
@@ -39,8 +43,8 @@ namespace audio_optio
                       "~/Content/site.css",
                       "~/Content/jquery.fancybox.css"));
 
-            bundles.Add(new StyleBundle("~/Content/nonav_css").Include(
-                      "~/Content/nonav.css"));
+            bundles.Add(new StyleBundle("~/Content/landing").Include(
+                      "~/Content/landing.css"));
         }
     }
 }

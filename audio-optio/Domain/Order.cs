@@ -91,6 +91,8 @@ namespace audio_optio.Domain
         public string Comments { get; set; }
 
         public Status OrderStatus { get; set; }
+        
+        public string DiscountCode { get; set; }
 
         [Required]
         public CanvasSize Size { get; set; }

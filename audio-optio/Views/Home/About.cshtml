@@ -1,42 +1,100 @@
-﻿<h1 class="emphasize">Hello!</h1>
+﻿<style>
+    .banner {
+        justify-content: space-between;
+        align-content: center;
+        text-align: center;
+        display: flex;
+        width: 100%;
+        margin: 0px auto;
+    }
 
-<div class="row">
-    <p>
-        Welcome to Audio Optio, the company that converts your favorite song into unique and striking graphical art.
-    </p>
+    /*.col-sm-4, .col-sm-8, .col-sm-12 {
+        flex: 1;
+    }*/
 
-    <p>
-        The idea behind this work was born from my love of expressing data visually.
-        In my day job, I often present charts and pictures of my calculations simply because
-        no one likes looking at just numbers!
-        Because of this, it was easy for me to imagine that music can be also be illustrated visually.
-        For example any music file you might have (.mp3, .wave, etc.) is made up of data that your computer
-        translates into sound. Songs have intensity, pitch, timbre, and duration encoded in this data.
-        Using math I can extract these features and throw them on a canvas.
-    </p>
-    <p>
-        That data usually looks like this:
-    </p>
+    .absolute-center {
+        /* Internet Explorer 10 */
+        display: -ms-flexbox;
+        -ms-flex-pack: center;
+        -ms-flex-align: center;
+        /* Firefox */
+        display: -moz-box;
+        -moz-box-pack: center;
+        -moz-box-align: center;
+        /* Safari, Opera, and Chrome */
+        display: -webkit-box;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        /* W3C */
+        display: box;
+        box-pack: center;
+        box-align: center;
+        min-width: 0;
+    }
 
-    <div class="col-md-12">
-        <a href="~/Images/sound_file.png" data-fancybox="images" data-caption="Sound Waves">
-            <img src="~/Images/sound_file.png" class="img-responsive" alt="Sound Waves" />
-        </a>
+    .row
+    {
+        margin:10px 0px;
+    }
+
+    img
+    {
+        display:block;
+        margin:0px auto;
+    }
+
+    .img-responsive
+    {
+        width:100%;
+        height:auto;
+    }
+</style>
+
+
+<div>
+    <div class="row banner">
+        <div class="col-sm-5"><img src="~/Images/res/product.png" class="img-responsive" /></div>
+        <div class="col-sm-7" style="display:flex; align-items:center; flex-direction:column;">
+            <div style="flex:1;" class="absolute-center">
+                <h3>Musical Synesthesia</h3>
+            </div>
+            <div style="flex:1;">Your favorite song as visual art on a personalized canvas.</div>
+        </div>
     </div>
-
-    <p>
-        From the start to the end of the song, the squiggly purple lines instruct the computer to push
-        sound out of its speakers quickly and slowly or loudly and softly.
-        The next thing you know, your ears pick up on those sound waves and voilà you’re dancing to Thriller.
-    </p>
-
-    <p>
-        Check out some of my previous work in the gallery.  Better yet, order customized art for yourself!
-    </p>
-
 </div>
-<div class="row">
-    <div class="col-md-2 col-md-offset-5">
-        <input class="transition-button" type="button" onclick="location.href='@Url.Action("Order", "Order")'" value="Order Now" />
+
+
+@*<div>
+    <div class="row banner">
+        <div class="col-sm-6"><img src="~/Images/res/waveform.png" class="img-responsive" /></div>
+        <div class="col-sm-6" style="display:flex; align-items:center; flex-direction:column;">
+            <div style="flex:1;" class="absolute-center">
+                <h3>Extracting Amplitude and Frequency</h3>
+            </div>
+            <div style="flex:1;">
+                Intensity, pitch, timbre, and duration manipulated into waveforms.
+            </div>
+        </div>
+    </div>
+</div>*@
+
+<div class="row banner">
+    <div class="col-sm-6">
+        <button type="button" class="transition-button" onclick="location.href='@Url.Action("Gallery",  "Home")'" >View Gallery</button>
+    </div>
+    <div class="col-sm-6">
+        <img src="~/Images/res/canvas_on_wall.png" class="img-responsive" />
+    </div>
+</div>
+
+<div class="row banner">
+    <div class="col-sm-8">
+        <img src="~/Images/res/RyanNicole-6.jpg" class="img-responsive img-circle" />
+    </div>
+    <div class="col-sm-4">
+        <div>
+            <h3>Ryan Henderson</h3>
+            <p>Engineer behind Audio Optio</p>
+        </div>
     </div>
 </div>
