@@ -59,13 +59,19 @@
 
     <div class="panel panel-footer">
         <div class="row">
-            <p><a href="http://audio-optio.com">www.audio-optio.com</a></p>
-            <p><a href="mailto:audio.optio@gmail.com">audio.optio@gmail.com</a></p>
+            <div class="col-sm-12">
+                <p><a href="http://audio-optio.com">www.audio-optio.com</a></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <p><a href="mailto:audio.optio@gmail.com">audio.optio@gmail.com</a></p>
+            </div>
         </div>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 </body>
 </html>

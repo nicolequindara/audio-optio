@@ -102,9 +102,9 @@
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="PayPal, Version=1.8.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\PayPal.1.8.0\lib\net40\PayPal.dll</HintPath>
+    <Reference Include="PayPal, Version=1.9.0.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
+      <HintPath>..\packages\PayPal.1.9.0\lib\net451\PayPal.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="PayPalCoreSDK, Version=1.7.1.0, Culture=neutral, PublicKeyToken=5b4afc1ccaef40fb, processorArchitecture=MSIL">
       <HintPath>..\packages\PayPalCoreSDK.1.7.1\lib\net451\PayPalCoreSDK.dll</HintPath>
@@ -177,6 +177,7 @@
     <Compile Include="App_Data\Configuration.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\CheckoutsController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
     <Compile Include="Controllers\EmailController.cs" />
@@ -220,6 +221,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\Braintree.css" />
+    <Content Include="Scripts\BraintreeDropin.js" />
     <Content Include="Content\fonts.css" />
     <Content Include="Content\landing.css" />
     <Content Include="Images\BigBlue.png" />
@@ -232,7 +235,6 @@
     <Content Include="Images\MoonlightSonata.png" />
     <Content Include="Images\res\product.png" />
     <Content Include="Images\res\RyanNicole-6.jpg" />
-    <Content Include="Images\res\banner.png" />
     <Content Include="Images\res\canvas_on_wall.png" />
     <Content Include="Images\EP1.png" />
     <Content Include="Images\EP2.png" />
@@ -268,7 +270,6 @@
     <Content Include="Images\landing_desaturated.jpg" />
     <Content Include="Images\PurpleRain.png" />
     <Content Include="Images\RememberWhen.png" />
-    <Content Include="Images\res\waveform.png" />
     <Content Include="Images\SomethingAboutBlue.png" />
     <Content Include="Images\SomethingAboutGreen.png" />
     <Content Include="Images\TOF_warp.png" />
@@ -285,8 +286,6 @@
     <Content Include="Images\Mom_grapevine_v8_HIGHRES2.png" />
     <Content Include="Images\purple-logo.png" />
     <Content Include="Images\RoughBoyPS.png" />
-    <Content Include="Images\res\ryan_head.png" />
-    <Content Include="Images\res\sound_file.png" />
     <Content Include="Images\WayBackHome.png" />
     <Content Include="Images\WayBackHome_scatter.png" />
     <Content Include="Images\WayBackHome_v2.png" />
@@ -342,6 +341,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\landing.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\PayViewToggle.js" />
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
@@ -368,17 +368,18 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Gallery.cshtml" />
     <Content Include="Views\Order\Order.cshtml" />
-    <Content Include="Views\Home\Index_NoNav.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Order\Details.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Contact\Contact.cshtml" />
-    <Content Include="Views\Order\FailureView.cshtml" />
-    <Content Include="Views\Order\SuccessView.cshtml" />
-    <Content Include="Views\Order\Pay.cshtml" />
+    <Content Include="Views\Checkouts\FailView.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LandingLayout.cshtml" />
+    <Content Include="Views\Order\Checkout.cshtml" />
+    <Content Include="Views\Order\Pay.cshtml" />
+    <Content Include="Views\Checkouts\New.cshtml" />
+    <Content Include="Views\Checkouts\ShowDetails.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

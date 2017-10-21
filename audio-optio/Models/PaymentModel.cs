@@ -91,11 +91,15 @@ namespace audio_optio.Models
 
         public Address ShippingAddress { get; set; }
 
+        public string ShippingName { get; set; }
+
         public Address BillingAddress { get; set; }
+
+        public string BillingName { get; set; }
 
         public CreditCard CreditCard { get; set; }
 
-        public float Price { get; set; }
+        public decimal Price { get; set; }
 
         
         public PaymentModel()
@@ -114,11 +118,12 @@ namespace audio_optio.Models
         {
             if(sameAddress)
             {
-                ShippingAddress.line1 = String.IsNullOrEmpty(BillingAddress.line1) ? BillingAddress.line1 : "";
-                ShippingAddress.line2 = String.IsNullOrEmpty(BillingAddress.line1) ? BillingAddress.line1 : "";
-                ShippingAddress.city = String.IsNullOrEmpty(BillingAddress.city) ? BillingAddress.city : "";
-                ShippingAddress.state = String.IsNullOrEmpty(BillingAddress.state) ? BillingAddress.state : "";
-                ShippingAddress.postal_code = String.IsNullOrEmpty(BillingAddress.postal_code) ? BillingAddress.postal_code : "";
+                ShippingName = !String.IsNullOrEmpty(BillingName) ? BillingName : "";
+                ShippingAddress.line1 = !String.IsNullOrEmpty(BillingAddress.line1) ? BillingAddress.line1 : "";
+                ShippingAddress.line2 = !String.IsNullOrEmpty(BillingAddress.line1) ? BillingAddress.line1 : "";
+                ShippingAddress.city = !String.IsNullOrEmpty(BillingAddress.city) ? BillingAddress.city : "";
+                ShippingAddress.state = !String.IsNullOrEmpty(BillingAddress.state) ? BillingAddress.state : "";
+                ShippingAddress.postal_code = !String.IsNullOrEmpty(BillingAddress.postal_code) ? BillingAddress.postal_code : "";
             }
         }
 

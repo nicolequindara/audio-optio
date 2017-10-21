@@ -2,13 +2,12 @@
 @model audio_optio.Models.PaymentModel
 
 <style>
-    label
-    {
-        font-weight:bold;
+    label {
+        font-weight: bold;
     }
 </style>
 
-@using (Html.BeginForm("Pay", "Order", FormMethod.Post))
+@using (Html.BeginForm("Create", "Checkouts", FormMethod.Post, new { id = "payment-form" }))
 {
     if (ViewData.ModelState.Any(x => x.Value.Errors.Any()))
     {
@@ -90,6 +89,13 @@
     <div id="billing_address">
         <h2>Billing Address</h2>
         <div class="row">
+            <div class="col-md-3"><label>Name</label></div>
+            <div class="col-md-9">
+                @Html.TextBoxFor(model => model.BillingName, new { @class = "form-control" })
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-3"><label>Address Line 1</label></div>
             <div class="col-md-9">
                 @Html.TextBoxFor(model => model.BillingAddress.line1, new { @class = "form-control" })
@@ -134,6 +140,13 @@
 
         <div id="shipping_address">
             <div class="row">
+                <div class="col-md-3"><label>Name</label></div>
+                <div class="col-md-9">
+                    @Html.TextBoxFor(model => model.ShippingName, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="row">
                 <div class="col-md-3"><label>Address Line 1</label></div>
                 <div class="col-md-9">
                     @Html.TextBoxFor(model => model.ShippingAddress.line1, new { @class = "form-control" })
@@ -166,115 +179,50 @@
         </div>
     </div>
 
+
     <hr />
 
-    <h2>Payment Method</h2>
-    <div class="row">
-        <div class="col-md-1 text-right">
-                @Html.RadioButtonFor(model => model.payPaypal, false, new { name = "paypal", id = "pay_cc", @checked = "checked" })
-            </div>
-            <div class="col-md-4">
-                <span><label>Pay with Credit Card</label></span>
-            </div>
-        <div class="col-md-1 text-right">
-            @Html.RadioButtonFor(model => model.payPaypal, true, new { name = "paypal", id = "pay_paypal" })
-        </div>
-        <div class="col-md-4">
-            <span><label>Pay with Paypal</label></span>
+    <div class="wrapper">
+        <div class="checkout container">
+            <section>
+                <div class="bt-drop-in-wrapper">
+                    <div id="bt-dropin"></div>
+                </div>
+            </section>
+            <input id="nonce" name="payment_method_nonce" type="hidden" />
+            <button class="button transition-button" type="submit"><span>Submit</span></button>
         </div>
     </div>
-
-    <div id="cc_fields">
-        <div class="row">
-            <div class="col-md-3"><label>First Name</label></div>
-            <div class="col-md-9">
-                @Html.TextBoxFor(model => model.CreditCard.first_name, new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3"><label>Last Name</label></div>
-            <div class="col-md-9">
-                @Html.TextBoxFor(model => model.CreditCard.last_name, new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-3"><label>Credit Card Number</label></div>
-            <div class="col-md-9">
-                @Html.TextBoxFor(model => model.CreditCard.number, new { @class = "form-control" })
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-1"><label>Credit Card Type</label></div>
-            <div class="col-md-2">
-                @Html.DropDownListFor(model => model.CreditCard.type, new SelectListItem[] {
-                   new SelectListItem() { Value = "visa", Text = "Visa" },
-                   new SelectListItem() { Value = "mastercard", Text = "MasterCard" },
-                   new SelectListItem() { Value = "discover", Text = "Discover" },
-                   new SelectListItem() { Value = "amex", Text = "Amex" }}, new { @class = "form-control" })
-            </div>
-
-            <div class="col-md-1"><label>CVV</label></div>
-            <div class="col-md-2">
-                @Html.TextBoxFor(model => model.CreditCard.cvv2, new { type = "number", min = "000", max = "9999", @Value = "000", @class = "form-control" })
-            </div>
-
-            <div class="col-md-1"><label>Expiration Month</label></div>
-            <div class="col-md-2">
-                @Html.TextBoxFor(model => model.CreditCard.expire_month, new { type = "number", min = "1", max = "12", @Value = "1", @class = "form-control" })
-            </div>
-
-
-            <div class="col-md-1"><label>Expiration Year</label></div>
-            <div class="col-md-2">
-                @Html.TextBoxFor(model => model.CreditCard.expire_year, new { type = "number", min = "2017", max = "2060", @Value = "2017", @class = "form-control" })
-            </div>
-        </div>
-    </div>
-
-    @Html.AntiForgeryToken()
-    <input class="transition-button" type="submit" value="Submit Payment" />
-
 }
+<script src="https://js.braintreegateway.com/web/dropin/1.8.0/js/dropin.min.js"></script>
+<script>
 
+    var client_token = "@ViewBag.ClientToken";
+    var form = document.querySelector('#payment-form');
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $("#same").click(function () {
-            if ($("#same").prop("checked")) {
-                $("#shipping_address").hide(1000);
-            }
-            else {
-                $("#shipping_address").show(1000);
-            }
-        })
-
-
-        toggleCreditCardDiv();
-
-        $("#pay_cc, #pay_paypal").click(function () {
-            toggleCreditCardDiv();
-        });
-
-
-        function toggleCreditCardDiv() {
-            if ($("#pay_cc").prop("checked")) {
-                $("#cc_fields").show(1000);
-            }
-            else {
-                $("#cc_fields").hide(1000);
-            }
-
-            if ($("#pay_paypal").prop("checked")) {
-                $("#cc_fields").hide(1000);
-            }
-            else {
-                $("#cc_fields").show(1000);
-            }
-
+    braintree.dropin.create({
+        authorization: client_token,
+        container: '#bt-dropin',
+        paypal: {
+            //flow: 'vault'
+            flow: 'checkout'
         }
+    }, function (createErr, instance) {
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
 
-    })
+            instance.requestPaymentMethod(function (err, payload) {
+                if (err) {
+                    console.log('Error', err);
+                    return;
+                }
+
+                // Add the nonce to the form and submit
+                document.querySelector('#nonce').value = payload.nonce;
+                form.submit();
+            });
+        });
+    });
+
 </script>
+<script src="~/Scripts/PayViewToggle.js"></script>

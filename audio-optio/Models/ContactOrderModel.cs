@@ -14,37 +14,37 @@ namespace audio_optio.Models
         public SelectList dropDownLabels = new SelectList(labels, "Key", "Value");
         private static Dictionary<Order.CanvasSize, string> labels = new Dictionary<Order.CanvasSize, string>();
 
-        public static float getPrice(Order.CanvasSize size)
+        public static decimal getPrice(Order.CanvasSize size)
         {
-            float price = 559.98f;
+            decimal price = 559.98m;
             switch (size)
             {
                 case Order.CanvasSize.Twelve_by_Sixteen:
-                    price = 102f;
+                    price = 102m;
                     break;
                 case Order.CanvasSize.Fourteen_by_Fourteen:
-                    price = 104f;
+                    price = 104m;
                     break;
                 case Order.CanvasSize.Sixteen_by_Twenty:
-                    price = 166f;
+                    price = 166m;
                     break;
                 case Order.CanvasSize.Eighteen_by_TwentyFour:
-                    price = 194f;
+                    price = 194m;
                     break;
                 case Order.CanvasSize.Twenty_by_Thirty:
-                    price = 294f;
+                    price = 294m;
                     break;
                 case Order.CanvasSize.TwentyFour_by_ThirtyTwo:
-                    price = 363f;
+                    price = 363m;
                     break;
                 case Order.CanvasSize.Sixteen_by_FortyEight:
-                    price = 363f;
+                    price = 363m;
                     break;
                 case Order.CanvasSize.Thirty_by_Forty:
-                    price = 516f;
+                    price = 516m;
                     break;
                 case Order.CanvasSize.Forty_by_Sixty:
-                    price = 744f;
+                    price = 744m;
                     break;
                 default:
                     break;
@@ -54,7 +54,7 @@ namespace audio_optio.Models
         }
         public ContactOrderModel()
         {
-            if(labels.Count > 0)
+            if (labels.Count > 0)
             {
                 return;
             }
@@ -69,9 +69,5 @@ namespace audio_optio.Models
             labels.Add(Order.CanvasSize.Thirty_by_Forty, "30 x 40 - $516.00");
             labels.Add(Order.CanvasSize.Forty_by_Sixty, "40 x 60 - $744.00");
         }
-
-
     }
-
-
 }
