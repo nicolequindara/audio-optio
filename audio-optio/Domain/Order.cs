@@ -85,8 +85,7 @@ namespace audio_optio.Domain
         public Contact Contact { get; set; }
 
         [Required]
-        [Url]
-        public string YoutubeLink { get; set; }
+        public string Song { get; set; }
 
         public string Comments { get; set; }
 

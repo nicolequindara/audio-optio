@@ -212,6 +212,10 @@
     <Compile Include="Migrations\201710142317167_Discounts.Designer.cs">
       <DependentUpon>201710142317167_Discounts.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201710271656399_Song.cs" />
+    <Compile Include="Migrations\201710271656399_Song.Designer.cs">
+      <DependentUpon>201710271656399_Song.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContactCommentModel.cs" />
     <Compile Include="Models\OrdersModel.cs" />
@@ -402,6 +406,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710142317167_Discounts.resx">
       <DependentUpon>201710142317167_Discounts.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201710271656399_Song.resx">
+      <DependentUpon>201710271656399_Song.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -94,7 +94,7 @@ namespace audio_optio.Controllers
                 model.contact.FirstName + " " + model.contact.LastName,
                 model.contact.Email,
                 model.contact.Phone,
-                model.order.YoutubeLink,
+                model.order.Song,
                 model.order.Comments,
                 Order.GetCanvasDescription(model.order.Size));
 

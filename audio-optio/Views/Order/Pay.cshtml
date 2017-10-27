@@ -44,9 +44,9 @@
         </div>
 
         <div class="row">
-            <div class="col-md-3">@Html.Label("Youtube Link")</div>
-            <a class="col-md-9" href="@Model.contactOrder.order.YoutubeLink.ToString()">@Model.contactOrder.order.YoutubeLink.ToString()</a>
-            @Html.HiddenFor(m => m.contactOrder.order.YoutubeLink)
+            <div class="col-md-3">@Html.Label("Song")</div>
+            <div class="col-md-9">@Model.contactOrder.order.Song.ToString()</div>
+            @Html.HiddenFor(m => m.contactOrder.order.Song)
         </div>
 
         <div class="row">
