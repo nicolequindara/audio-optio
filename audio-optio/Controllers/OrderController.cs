@@ -117,7 +117,7 @@ namespace audio_optio.Controllers
         public ActionResult CreatePayment(ContactOrderModel contactOrder)
         {
             PaymentModel m = new PaymentModel { contactOrder = contactOrder };
-            m.Price = m.contactOrder == null ? 0.0m : ContactOrderModel.getPrice(m.contactOrder.order.Size);
+            m.Price = m.contactOrder == null ? 0.0m : audio_optio.Domain.Order.GetPrice(m.contactOrder.order.Size);
             
             // Evaluate discount code
             if (!String.IsNullOrEmpty(contactOrder.order.DiscountCode) && contactOrder.order.DiscountCode.ToLower().Equals("musical0275friendship"))

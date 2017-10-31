@@ -11,9 +11,11 @@ namespace audio_optio.Domain
         public Order()
         {
             OrderStatus = Status.Submitted;
-            DateCompleted = DateTime.Now;
-            DateSubmitted = DateTime.Now;
-            DatePending = DateTime.Now;
+
+            DateTime now = DateTime.Now;
+            DateCompleted = now;
+            DateSubmitted = now;
+            DatePending = now;
         }
 
         public enum Status
@@ -23,10 +25,12 @@ namespace audio_optio.Domain
             Completed
         }
 
-        public static string GetCanvasDescription(CanvasSize size)
+        public static string GetDescription(CanvasSize size)
         {
             switch (size)
             {
+                case CanvasSize.Digital_Image:
+                    return "Digital Image";
                 case CanvasSize.Twelve_by_Sixteen:
                     return "12\" x 16\"";
                 case CanvasSize.Fourteen_by_Fourteen:
@@ -54,6 +58,8 @@ namespace audio_optio.Domain
 
         public enum CanvasSize
         {
+            [Description("Digital Image")]
+            Digital_Image,
             [Description("12\" by 16\"")]
             Twelve_by_Sixteen,
             [Description("14\" by 14\"")]
@@ -95,5 +101,48 @@ namespace audio_optio.Domain
 
         [Required]
         public CanvasSize Size { get; set; }
+
+        public static decimal GetPrice(Order.CanvasSize size)
+        {
+            decimal price;
+
+            switch (size)
+            {
+                case CanvasSize.Digital_Image:
+                    price = 50m;
+                    break;
+                case CanvasSize.Twelve_by_Sixteen:
+                    price = 102m;
+                    break;
+                case CanvasSize.Fourteen_by_Fourteen:
+                    price = 104m;
+                    break;
+                case CanvasSize.Sixteen_by_Twenty:
+                    price = 166m;
+                    break;
+                case CanvasSize.Eighteen_by_TwentyFour:
+                    price = 194m;
+                    break;
+                case CanvasSize.Twenty_by_Thirty:
+                    price = 294m;
+                    break;
+                case CanvasSize.TwentyFour_by_ThirtyTwo:
+                    price = 363m;
+                    break;
+                case CanvasSize.Sixteen_by_FortyEight:
+                    price = 363m;
+                    break;
+                case CanvasSize.Thirty_by_Forty:
+                    price = 516m;
+                    break;
+                case CanvasSize.Forty_by_Sixty:
+                    price = 744m;
+                    break;
+                default:
+                    throw new ArgumentException("Unrecognized size");
+            }
+
+            return price;
+        }
     }
 }

@@ -57,13 +57,13 @@
 
         <div class="row">
             <div class="col-md-3">@Html.Label("Date")</div>
-            <div class="col-md-9">@Model.contactOrder.order.DateSubmitted.ToString("MM/dd/YYYY")</div>
+            <div class="col-md-9">@Model.contactOrder.order.DateSubmitted.ToString("MM/dd/yyyy")</div>
             @Html.HiddenFor(m => m.contactOrder.order.DateSubmitted)
         </div>
 
         <div class="row">
-            <div class="col-md-3">@Html.Label("Canvas Size")</div>
-            <div class="col-md-9">@Order.GetCanvasDescription(@Model.contactOrder.order.Size)</div>
+            <div class="col-md-3">@Html.Label("Order Type")</div>
+            <div class="col-md-9">@Order.GetDescription(@Model.contactOrder.order.Size)</div>
             @Html.HiddenFor(m => m.contactOrder.order.Size)
         </div>
 

@@ -15,7 +15,7 @@
             <td>Date Submitted</td>
             <td>Youtube Link</td>
             <td>Comments</td>
-            <td>Canvas Size</td>
+            <td>Order Type</td>
             <td>Status</td>
         </tr>
     </thead>
@@ -28,7 +28,7 @@
             <td>@order.DateSubmitted</td>
             <td>@order.Song</td>
             <td>@order.Comments</td>
-            <td>@Order.GetCanvasDescription(@order.Size)</td>
+            <td>@Order.GetDescription(@order.Size)</td>
             <td>@order.OrderStatus</td>
         </tr>
     }

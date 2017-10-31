@@ -96,7 +96,7 @@ namespace audio_optio.Controllers
                 model.contact.Phone,
                 model.order.Song,
                 model.order.Comments,
-                Order.GetCanvasDescription(model.order.Size));
+                Order.GetDescription(model.order.Size));
 
             try
             {
