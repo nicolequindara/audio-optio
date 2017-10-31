@@ -1,0 +1,100 @@
+﻿<html>
+	<head>
+		<link href="https://fonts.googleapis.com/css?family=Grand+Hotel|Josefin+Sans|Sacramento" rel="stylesheet">
+		<style>
+			@import url('https://fonts.googleapis.com/css?family=Grand+Hotel|Josefin+Sans|Sacramento');
+			body
+			{{
+				font-family: 'Josefin Sans', 'Arial', sans-serif;
+				font-size:20px;
+				padding:50px;
+				text-align:center;
+				border:solid 1px gray;
+			}}
+			
+			h1
+			{{
+				font-family: 'Grand Hotel', 'Arial', sans-serif;
+			}}
+			
+			.main
+			{{
+				border: solid 1px gray;
+				padding:50px;
+			}}
+			
+			img
+			{{
+				height:75px;
+				display:block;
+				margin:10px auto;
+			}}
+			
+			p
+			{{
+				margin-top: 30px;
+			}}
+			
+			.signature
+			{{
+				font-size:50px;
+				font-family: 'Sacramento', 'Arial', sans-serif;
+			}}
+			
+			.footer
+			{{
+				font-size: 12px;
+			}}
+			
+			.details
+			{{
+				font-size: 16px;
+				color: #606060;
+			}}
+			
+			.bighello
+			{{
+				padding:50px;
+				display:0px auto;
+				text-align:center;
+			
+			}}
+			
+		</style>
+	</head>
+	<body>
+		<div class='main text-center'>
+			<div class='bighello text-center' style='background-color:#383838; color:white;'>
+				<h1>Hi, {0}!</h1>
+			</div>
+						
+			<h2>Thank you sincerely for visiting Audio Optio! </h2>
+			<p>
+			You made the time to check out my website, and I promise I'll make the time to personally respond to you.
+			In the meantime, I hope you're listening to something cool that you'd like to see.
+			</p>
+			
+			<h2>Your comment:</h2>
+			<div class='details'>{1}</div>
+			
+			
+			
+			<h2>Happy synesthesia!</h2>
+			<div class='signature'>Ryan</div>
+			
+			<div class='footer text-center'>
+				<img src='http://www.audio-optio.science/Images/dark-to-light-logo.png'/>
+				<div class='row'>
+					<div>
+						<a href='mailto:audio.optio@gmail.com?Subject='Hello''>audio.optio@gmail.com</a>
+					</div>
+				</div>
+				<div>
+					<div>
+						<a href='www.audio-optio.science'>www.audio-optio.com</a>
+					</div>
+				</div>
+			</div>
+		</div>			
+	</body>
+</html>

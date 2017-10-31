@@ -380,9 +380,7 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LandingLayout.cshtml" />
-    <Content Include="Views\Order\Checkout.cshtml" />
     <Content Include="Views\Order\Pay.cshtml" />
-    <Content Include="Views\Checkouts\New.cshtml" />
     <Content Include="Views\Checkouts\ShowDetails.cshtml" />
   </ItemGroup>
   <ItemGroup />

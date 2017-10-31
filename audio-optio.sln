@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "audio-optio", "audio-optio\audio-optio.csproj", "{24B143F1-7EF8-4D93-9391-68B3CC09BB2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "audio-optio.test", "audio-optio.test\audio-optio.test.csproj", "{1CA211EE-6674-4208-A715-701189099267}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{24B143F1-7EF8-4D93-9391-68B3CC09BB2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{24B143F1-7EF8-4D93-9391-68B3CC09BB2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{24B143F1-7EF8-4D93-9391-68B3CC09BB2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CA211EE-6674-4208-A715-701189099267}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CA211EE-6674-4208-A715-701189099267}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CA211EE-6674-4208-A715-701189099267}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CA211EE-6674-4208-A715-701189099267}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
