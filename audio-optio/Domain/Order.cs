@@ -102,6 +102,9 @@ namespace audio_optio.Domain
         [Required]
         public CanvasSize Size { get; set; }
 
+        public Address ShippingAddress { get; set; }
+        public Address BillingAddress { get; set; }
+
         public static decimal GetPrice(Order.CanvasSize size)
         {
             decimal price;
@@ -144,5 +147,6 @@ namespace audio_optio.Domain
 
             return price;
         }
+        
     }
 }

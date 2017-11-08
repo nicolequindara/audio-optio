@@ -89,14 +89,6 @@ namespace audio_optio.Models
 
         public ContactOrderModel contactOrder { get; set; }
 
-        public Address ShippingAddress { get; set; }
-
-        public string ShippingName { get; set; }
-
-        public Address BillingAddress { get; set; }
-
-        public string BillingName { get; set; }
-
         public CreditCard CreditCard { get; set; }
 
         public decimal Price { get; set; }
@@ -109,8 +101,6 @@ namespace audio_optio.Models
             sameAddress = false;
             success = false;
             contactOrder = new ContactOrderModel();
-            ShippingAddress = new Address();
-            BillingAddress = new Address();
             CreditCard = new CreditCard();
         }
 
@@ -118,12 +108,12 @@ namespace audio_optio.Models
         {
             if(sameAddress)
             {
-                ShippingName = !String.IsNullOrEmpty(BillingName) ? BillingName : "";
-                ShippingAddress.line1 = !String.IsNullOrEmpty(BillingAddress.line1) ? BillingAddress.line1 : "";
-                ShippingAddress.line2 = !String.IsNullOrEmpty(BillingAddress.line1) ? BillingAddress.line1 : "";
-                ShippingAddress.city = !String.IsNullOrEmpty(BillingAddress.city) ? BillingAddress.city : "";
-                ShippingAddress.state = !String.IsNullOrEmpty(BillingAddress.state) ? BillingAddress.state : "";
-                ShippingAddress.postal_code = !String.IsNullOrEmpty(BillingAddress.postal_code) ? BillingAddress.postal_code : "";
+                contactOrder.order.ShippingAddress.To = !String.IsNullOrEmpty(contactOrder.order.BillingAddress.To) ? contactOrder.order.BillingAddress.To : "";
+                contactOrder.order.ShippingAddress.AddressLine1 = !String.IsNullOrEmpty(contactOrder.order.BillingAddress.AddressLine1) ? contactOrder.order.BillingAddress.AddressLine1 : "";
+                contactOrder.order.ShippingAddress.AddressLine2 = !String.IsNullOrEmpty(contactOrder.order.BillingAddress.AddressLine2) ? contactOrder.order.BillingAddress.AddressLine2 : "";
+                contactOrder.order.ShippingAddress.City = !String.IsNullOrEmpty(contactOrder.order.BillingAddress.City) ? contactOrder.order.BillingAddress.City : "";
+                contactOrder.order.ShippingAddress.State = !String.IsNullOrEmpty(contactOrder.order.BillingAddress.State) ? contactOrder.order.BillingAddress.State : "";
+                contactOrder.order.ShippingAddress.PostalCode = !String.IsNullOrEmpty(contactOrder.order.BillingAddress.PostalCode) ? contactOrder.order.BillingAddress.PostalCode : "";
             }
         }
 
@@ -131,59 +121,46 @@ namespace audio_optio.Models
         {
             List<string> errors = new List<string>();
 
-            if (String.IsNullOrEmpty(BillingAddress.line1))
+            if (String.IsNullOrEmpty(contactOrder.order.BillingAddress.AddressLine1))
             {
                 errors.Add("Billing address missing street address.");
             }
 
-            if (String.IsNullOrEmpty(BillingAddress.city))
+            if (String.IsNullOrEmpty(contactOrder.order.BillingAddress.City))
             {
                 errors.Add("Billing address missing city.");
             }
 
-            if (String.IsNullOrEmpty(BillingAddress.state))
+            if (String.IsNullOrEmpty(contactOrder.order.BillingAddress.State))
             {
                 errors.Add("Billing address missing state.");
             }
 
-            if (String.IsNullOrEmpty(BillingAddress.postal_code))
+            if (String.IsNullOrEmpty(contactOrder.order.BillingAddress.PostalCode))
             {
 
                 errors.Add("Billing address missing postal code.");
             }
 
-            if (sameAddress)
-            {
-                ShippingAddress = BillingAddress;
-            }
-
-            if (String.IsNullOrEmpty(ShippingAddress.line1))
+            if (String.IsNullOrEmpty(contactOrder.order.ShippingAddress.AddressLine1))
             {
                 errors.Add("Shipping address missing street address.");
             }
 
-            if (String.IsNullOrEmpty(ShippingAddress.city))
+            if (String.IsNullOrEmpty(contactOrder.order.ShippingAddress.City))
             {
                 errors.Add("Shipping address missing city.");
             }
 
-            if (String.IsNullOrEmpty(ShippingAddress.state))
+            if (String.IsNullOrEmpty(contactOrder.order.ShippingAddress.State))
             {
                 errors.Add("Shipping address missing state.");
             }
 
-            if (String.IsNullOrEmpty(ShippingAddress.postal_code))
+            if (String.IsNullOrEmpty(contactOrder.order.ShippingAddress.PostalCode))
             {
 
                 errors.Add("Shipping address missing postal code.");
-            }
-
-            if (!payPaypal)
-            {
-                if (String.IsNullOrEmpty(CreditCard.cvv2) || String.IsNullOrEmpty(CreditCard.number))
-                {
-                    errors.Add("Invalid credit card.");
-                }
             }
 
             return errors;

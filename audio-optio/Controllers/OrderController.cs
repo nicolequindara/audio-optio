@@ -11,6 +11,7 @@ using audio_optio.Database;
 
 using PayPal.Api;
 
+using Address = audio_optio.Domain.Address;
 using Order = audio_optio.Domain.Order;
 
 namespace audio_optio.Controllers
@@ -76,7 +77,7 @@ namespace audio_optio.Controllers
             if (ModelState.IsValid)
             {
                 model.contact.Format();
-
+                
                 if (!String.IsNullOrEmpty(model.order.DiscountCode) && !model.order.DiscountCode.Equals(discountCode))
                 {
                     model.success = false;
@@ -98,7 +99,7 @@ namespace audio_optio.Controllers
                 model.order.Contact = c;
                 model.order.DateSubmitted = DateTime.Now;
                 orders.Insert(model.order);
-
+                
                 return CreatePayment(model);
             }
             else
@@ -128,10 +129,11 @@ namespace audio_optio.Controllers
 
             m.contactOrder.order.OrderStatus = audio_optio.Domain.Order.Status.Pending;
 
+            // Braintree gateway
             var gateway = Configuration.GetGateway();
             var clientToken = gateway.ClientToken.Generate();
             ViewBag.ClientToken = clientToken;
-
+            
             return View("Pay", m);
         }
     }

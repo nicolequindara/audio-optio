@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.Net.Mail;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -75,9 +76,12 @@ namespace audio_optio.Controllers
         /// Send order notification
         /// </summary>
         /// <param name="model"></param>
-        public void SendNotification(ContactOrderModel model)
+        public void SendNotification(PaymentModel model)
         {
-            MailMessage mail = CreateEmail("Order Confirmation from Audio Optio", model.contact.Email);
+            Order order = model.contactOrder.order;
+            Contact contact = model.contactOrder.contact;
+
+            MailMessage mail = CreateEmail("Order Confirmation from Audio Optio", contact.Email);
 
             string body;
             // Read the file and display it line by line.
@@ -88,15 +92,25 @@ namespace audio_optio.Controllers
 
             body = Regex.Replace(body, @"\t|\n|\r", "");
             StringBuilder addressSb = new StringBuilder();
-            
-            mail.Body = string.Format(body, model.contact.FirstName, 
-                model.order.DateSubmitted,
-                model.contact.FirstName + " " + model.contact.LastName,
-                model.contact.Email,
-                model.contact.Phone,
-                model.order.Song,
-                model.order.Comments,
-                Order.GetDescription(model.order.Size));
+
+
+            string address = String.Format("{0}\n{1}\n{2}, {3} {4}",
+                order.BillingAddress.To,
+                string.IsNullOrEmpty(order.BillingAddress.AddressLine2) ? order.BillingAddress.AddressLine1 : string.Format("{0}\n{1}", order.BillingAddress.AddressLine1, order.BillingAddress.AddressLine2),
+                order.BillingAddress.City,
+                order.BillingAddress.State,
+                order.BillingAddress.PostalCode);
+
+            mail.Body = string.Format(body, contact.FirstName,
+                order.DateSubmitted,
+                contact.FirstName + " " + contact.LastName,
+                contact.Email,
+                contact.Phone,
+                order.Song,
+                order.Comments,
+                Order.GetDescription(order.Size),
+                model.Price.ToString("C", CultureInfo.CurrentCulture),
+                address);
 
             try
             {

@@ -125,6 +125,14 @@
 						<td>Size</td>
 						<td>{7}</td>
 					</tr>
+					<tr>
+						<td>Price</td>
+						<td>{8}</td>
+					</tr>
+					<tr>
+						<td>Shipping Address</td>
+						<td>{9}</td>
+					</tr>
 				</table>
 			</div>
 						

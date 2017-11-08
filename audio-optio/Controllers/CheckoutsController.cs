@@ -1,16 +1,20 @@
 ﻿using Braintree;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
+using audio_optio.Database;
 using audio_optio.Models;
 
 namespace audio_optio.Controllers
 {
     public class CheckoutsController : Controller
     {
+
+        private AddressRepository addresses;
         public static readonly TransactionStatus[] transactionSuccessStatuses = {
                                                                                     TransactionStatus.AUTHORIZED,
                                                                                     TransactionStatus.AUTHORIZING,
@@ -29,8 +33,25 @@ namespace audio_optio.Controllers
         //    return View();
         //}
 
+        public CheckoutsController()
+        {
+            AoDbContext context = new AoDbContext();
+            addresses = new AddressRepository(context);
+        }
+
         public ActionResult Create(PaymentModel model)
         {
+            if (ModelState.IsValid)
+            {
+                model.Format();
+
+                // Save addresses
+                model.contactOrder.order.ShippingAddress.Contact = model.contactOrder.contact;
+                model.contactOrder.order.BillingAddress.Contact = model.contactOrder.contact;
+                addresses.Insert(model.contactOrder.order.ShippingAddress);
+                addresses.Insert(model.contactOrder.order.BillingAddress);
+            }
+
             var gateway = audio_optio.App_Data.Configuration.GetGateway();
 
             var nonce = Request["payment_method_nonce"];
@@ -44,10 +65,10 @@ namespace audio_optio.Controllers
                 },
                 BillingAddress = new AddressRequest
                 {
-                    FirstName = model.BillingName,
-                    StreetAddress = model.BillingAddress.line1,
-                    ExtendedAddress = model.BillingAddress.line2,
-                    PostalCode = model.BillingAddress.postal_code,
+                    FirstName = model.contactOrder.order.BillingAddress.To,
+                    StreetAddress = model.contactOrder.order.BillingAddress.AddressLine1,
+                    ExtendedAddress = model.contactOrder.order.BillingAddress.AddressLine2,
+                    PostalCode = model.contactOrder.order.BillingAddress.PostalCode,
                     CountryCodeAlpha2 = "US"
                 },
                 Customer = new CustomerRequest
@@ -59,10 +80,10 @@ namespace audio_optio.Controllers
                 },
                 ShippingAddress = new AddressRequest
                 {
-                    FirstName = model.ShippingName,
-                    StreetAddress = model.ShippingAddress.line1,
-                    ExtendedAddress = model.ShippingAddress.line2,
-                    PostalCode = model.ShippingAddress.postal_code,
+                    FirstName = model.contactOrder.order.ShippingAddress.To,
+                    StreetAddress = model.contactOrder.order.ShippingAddress.AddressLine1,
+                    ExtendedAddress = model.contactOrder.order.ShippingAddress.AddressLine2,
+                    PostalCode = model.contactOrder.order.ShippingAddress.PostalCode,
                     CountryCodeAlpha2 = "US"
                 },
                 OrderId = model.contactOrder.order.Id.ToString()
@@ -74,7 +95,7 @@ namespace audio_optio.Controllers
                 Transaction transaction = result.Target;
 
                 // Send notification
-                new EmailController().SendNotification(model.contactOrder);
+                new EmailController().SendNotification(model);
 
                 return RedirectToAction("ShowDetails", new { id = transaction.Id });
 
