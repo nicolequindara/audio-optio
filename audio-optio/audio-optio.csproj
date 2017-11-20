@@ -184,11 +184,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Database\AoDbContext.cs" />
+    <Compile Include="Database\AddressRepository.cs" />
     <Compile Include="Database\CommentRepository.cs" />
     <Compile Include="Database\OrderRepository.cs" />
     <Compile Include="Database\ContactRepository.cs" />
     <Compile Include="Database\IRepository.cs" />
     <Compile Include="Database\UserRepository.cs" />
+    <Compile Include="Domain\Address.cs" />
     <Compile Include="Domain\Comment.cs" />
     <Compile Include="Domain\User.cs" />
     <Compile Include="Global.asax.cs">
@@ -216,6 +218,14 @@
     <Compile Include="Migrations\201710271656399_Song.Designer.cs">
       <DependentUpon>201710271656399_Song.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201711070333211_Address.cs" />
+    <Compile Include="Migrations\201711070333211_Address.Designer.cs">
+      <DependentUpon>201711070333211_Address.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201711080114197_Address1.cs" />
+    <Compile Include="Migrations\201711080114197_Address1.Designer.cs">
+      <DependentUpon>201711080114197_Address1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContactCommentModel.cs" />
     <Compile Include="Models\OrdersModel.cs" />
@@ -226,6 +236,9 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\Braintree.css" />
+    <Content Include="Content\lightslider.css" />
+    <Content Include="favicon-16x16.png" />
+    <Content Include="favicon-32x32.png" />
     <Content Include="Scripts\BraintreeDropin.js" />
     <Content Include="Content\fonts.css" />
     <Content Include="Content\landing.css" />
@@ -244,32 +257,6 @@
     <Content Include="Images\EP2.png" />
     <Content Include="Images\EP3bar.png" />
     <Content Include="Images\EWTRTW.png" />
-    <Content Include="Images\favicon\android-icon-144x144.png" />
-    <Content Include="Images\favicon\android-icon-192x192.png" />
-    <Content Include="Images\favicon\android-icon-36x36.png" />
-    <Content Include="Images\favicon\android-icon-48x48.png" />
-    <Content Include="Images\favicon\android-icon-72x72.png" />
-    <Content Include="Images\favicon\android-icon-96x96.png" />
-    <Content Include="Images\favicon\apple-icon-114x114.png" />
-    <Content Include="Images\favicon\apple-icon-120x120.png" />
-    <Content Include="Images\favicon\apple-icon-144x144.png" />
-    <Content Include="Images\favicon\apple-icon-152x152.png" />
-    <Content Include="Images\favicon\apple-icon-180x180.png" />
-    <Content Include="Images\favicon\apple-icon-57x57.png" />
-    <Content Include="Images\favicon\apple-icon-60x60.png" />
-    <Content Include="Images\favicon\apple-icon-72x72.png" />
-    <Content Include="Images\favicon\apple-icon-76x76.png" />
-    <Content Include="Images\favicon\apple-icon-precomposed.png" />
-    <Content Include="Images\favicon\apple-icon.png" />
-    <Content Include="Images\favicon\browserconfig.xml" />
-    <Content Include="Images\favicon\favicon-16x16.png" />
-    <Content Include="Images\favicon\favicon-32x32.png" />
-    <Content Include="Images\favicon\favicon-96x96.png" />
-    <Content Include="Images\favicon\favicon.ico" />
-    <Content Include="Images\favicon\ms-icon-144x144.png" />
-    <Content Include="Images\favicon\ms-icon-150x150.png" />
-    <Content Include="Images\favicon\ms-icon-310x310.png" />
-    <Content Include="Images\favicon\ms-icon-70x70.png" />
     <Content Include="Images\landing_color.jpg" />
     <Content Include="Images\landing_desaturated.jpg" />
     <Content Include="Images\PurpleRain.png" />
@@ -330,7 +317,6 @@
     <Content Include="fonts\Montserrat-ThinItalic.ttf" />
     <Content Include="fonts\Lobster-Regular.ttf" />
     <Content Include="fonts\Mitr-Medium.ttf" />
-    <Content Include="Images\favicon\manifest.json" />
     <Content Include="fonts\JosefinSans-SemiBold.ttf" />
     <Content Include="fonts\Bevan-Regular.ttf" />
     <None Include="Properties\PublishProfiles\audio-optio20170619101511 - Web Deploy.pubxml" />
@@ -383,7 +369,9 @@
     <Content Include="Views\Order\Pay.cshtml" />
     <Content Include="Views\Checkouts\ShowDetails.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Images\res\order\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
@@ -407,6 +395,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201710271656399_Song.resx">
       <DependentUpon>201710271656399_Song.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711070333211_Address.resx">
+      <DependentUpon>201711070333211_Address.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201711080114197_Address1.resx">
+      <DependentUpon>201711080114197_Address1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

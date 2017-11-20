@@ -5,6 +5,35 @@
     label {
         font-weight: bold;
     }
+
+    .simple-checkbox {
+        outline: none;
+        border: none !important;
+        -webkit-box-shadow: none !important;
+        -moz-box-shadow: none !important;
+        box-shadow: none !important;
+        width: 30px;
+        height: 30px;
+    }
+
+    .animate-show-hide.ng-hide {
+        opacity: 0;
+    }
+
+    .animate-show-hide.ng-hide-add,
+    .animate-show-hide.ng-hide-remove {
+        transition: all linear 0.5s;
+    }
+
+    a
+    {
+        cursor:pointer;
+    }
+    a:hover
+    {
+        text-decoration:none;
+    }
+    
 </style>
 
 @using (Html.BeginForm("Create", "Checkouts", FormMethod.Post, new { id = "payment-form" }))
@@ -182,13 +211,81 @@
 
     <div class="wrapper">
         <div class="checkout container">
-            <section>
+            <div class="row">
+                <div class="col-sm-2">
+                    <input class="form-control simple-checkbox animate-show-hide" id="agree" type="checkbox" checked="checked"/>
+                </div>
+                <div class="col-sm-5" id="agree-text">
+                    <span>I agree to the <a data-toggle="modal" data-target="#toc">Terms and Conditions</a>.</span>
+                </div>
+            </div>
+            <hr />
+            <section id="bt-section">
                 <div class="bt-drop-in-wrapper">
                     <div id="bt-dropin"></div>
                 </div>
             </section>
             <input id="nonce" name="payment_method_nonce" type="hidden" />
-            <button class="button transition-button" type="submit"><span>Submit</span></button>
+            <button id="submit" class="button transition-button" type="submit"><span>Submit</span></button>
+        </div>
+    </div>
+    
+    <!-- Terms and Conditions -->
+    <div class="modal fade" id="toc" tabindex="-1" role="dialog" aria-labelledby="toc" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title">Terms and Conditions</h1>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <h4>Website Privacy Policy</h4>
+
+                    <p>
+                        This website privacy policy describes how Audio Optio protects and uses the information you provide the company when you order.
+                        If you are asked to provide information when using this website, it will only be used in the ways described in this privacy policy.
+                        This website privacy policy was updated on:	11/06/2017
+                    </p>
+
+                    <p>If you have any questions about this policy, please email  or write to: audio.optio@gmail.com</p>
+
+                    <p>We collect data used for site analytics, shipping, and contact purposes only. This data includes:</p>
+                    <ul>
+                        <li>Name</li>
+                        <li>Demographic information, such as postcode, preferences and interests</li>
+                        <li>Website usage data</li>
+                        <li>Phone Number</li>
+                        <li>Email</li>
+                        <li>Address</li>
+                    </ul>
+
+                    <p>The information is stored in a database owned by Azure. Security of this information is held to Azure's protective measures.</p>
+
+                    <p>We will never lease, distribute, or sell your personal information to third parties unless we have your permission or the law requires us to.</p>
+
+                    <hr />
+
+                    <h4>Requesting a Reprint or Refund</h4>
+                    <p>If you find any defect in your canvas such as loose or wavy canvas, bubbles, scratches, or fading, I will reprint or provide a 50% refund. Only a partial refund can be given due to the time spent creating the artwork.</p>
+
+                    <p>
+                        To request a reprint or refund please email <a href="mailto:audio.optio@gmail.com">audio.optio@gmail.com</a> with a digital image of the damage or defect along with a clear description of the problem.
+                        The pictures will be reviewed within 48 hours and if found to have a manufacturing defect, the request will be granted.
+                    </p>
+
+                    <p>
+                        <b>Request Window:</b> Customer can request a reprint or partial refund within 90 days from receipt of order.
+                    </p>
+                    <p>
+                        <b>Refund Method:</b> The refund shall be issued on their card or PayPal from which order was paid for and is generally done within 7 business days.
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" aria-label="Close">OK</button>
+                </div>
+            </div>
         </div>
     </div>
 }
@@ -222,5 +319,21 @@
         });
     });
 
+</script>
+<script>
+    $(document).ready(function () {
+        $("#agree").change(function () {
+            if($(this).is(":checked"))
+            {
+                $("#bt-section, #submit").show();
+                $("#agree-text").toggleClass("alert alert-danger");
+            }
+            else
+            {
+                $("#bt-section, #submit").hide();
+                $("#agree-text").toggleClass("alert alert-danger");
+            }
+        });
+    });
 </script>
 <script src="~/Scripts/PayViewToggle.js"></script>
