@@ -236,7 +236,6 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\Braintree.css" />
-    <Content Include="Content\lightslider.css" />
     <Content Include="favicon-16x16.png" />
     <Content Include="favicon-32x32.png" />
     <Content Include="Scripts\BraintreeDropin.js" />
@@ -366,7 +365,7 @@
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\_LandingLayout.cshtml" />
-    <Content Include="Views\Order\Pay.cshtml" />
+    <Content Include="Views\Shared\Pay.cshtml" />
     <Content Include="Views\Checkouts\ShowDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>

@@ -18,7 +18,7 @@ namespace audio_optio.Controllers
 {
     public class OrderController : Controller
     {
-        private const string discountCode = "musical0275friendship";
+        private const string discountCode = "black20friday";
         private string orderEmail = Configuration.EmailCredentials.Email;
         private string pw = Configuration.EmailCredentials.Password;
 
@@ -121,10 +121,10 @@ namespace audio_optio.Controllers
             m.Price = m.contactOrder == null ? 0.0m : audio_optio.Domain.Order.GetPrice(m.contactOrder.order.Size);
             
             // Evaluate discount code
-            if (!String.IsNullOrEmpty(contactOrder.order.DiscountCode) && contactOrder.order.DiscountCode.ToLower().Equals("musical0275friendship"))
+            if (!String.IsNullOrEmpty(contactOrder.order.DiscountCode) && contactOrder.order.DiscountCode.ToLower().Equals(discountCode))
             {
                 m.discountApplied = true;
-                m.Price *= .7m;
+                m.Price *= .8m;
             }
 
             m.contactOrder.order.OrderStatus = audio_optio.Domain.Order.Status.Pending;

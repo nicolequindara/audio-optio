@@ -25,15 +25,16 @@
         transition: all linear 0.5s;
     }
 
-    a
+    a 
     {
-        cursor:pointer;
-    }
-    a:hover
-    {
-        text-decoration:none;
+        cursor: pointer;
     }
     
+    a:hover 
+    {
+        text-decoration: none;
+
+    }
 </style>
 
 @using (Html.BeginForm("Create", "Checkouts", FormMethod.Post, new { id = "payment-form" }))
@@ -106,7 +107,7 @@
         {
             <div class="row">
                 <div class="col-md-12 alert alert-success">
-                    30% discount applied!
+                    20% discount applied!
                 </div>
             </div>
         }
@@ -206,14 +207,13 @@
         </div>
     </div>
 
-
     <hr />
 
     <div class="wrapper">
         <div class="checkout container">
             <div class="row">
                 <div class="col-sm-2">
-                    <input class="form-control simple-checkbox animate-show-hide" id="agree" type="checkbox" checked="checked"/>
+                    <input class="form-control simple-checkbox animate-show-hide" id="agree" type="checkbox" checked="checked" />
                 </div>
                 <div class="col-sm-5" id="agree-text">
                     <span>I agree to the <a data-toggle="modal" data-target="#toc">Terms and Conditions</a>.</span>
@@ -225,11 +225,14 @@
                     <div id="bt-dropin"></div>
                 </div>
             </section>
-            <input id="nonce" name="payment_method_nonce" type="hidden" />
-            <button id="submit" class="button transition-button" type="submit"><span>Submit</span></button>
+            <section id="submit-section">
+                <input id="nonce" name="payment_method_nonce" type="hidden" />
+                <input class="transition-button" type="submit" value="Submit" />
+            </section>
         </div>
     </div>
-    
+
+
     <!-- Terms and Conditions -->
     <div class="modal fade" id="toc" tabindex="-1" role="dialog" aria-labelledby="toc" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -289,6 +292,7 @@
         </div>
     </div>
 }
+
 <script src="https://js.braintreegateway.com/web/dropin/1.8.0/js/dropin.min.js"></script>
 <script>
 
@@ -318,21 +322,14 @@
             });
         });
     });
-
 </script>
-<script>
+<script type="text/javascript">
     $(document).ready(function () {
         $("#agree").change(function () {
-            if($(this).is(":checked"))
-            {
-                $("#bt-section, #submit").show();
-                $("#agree-text").toggleClass("alert alert-danger");
-            }
-            else
-            {
-                $("#bt-section, #submit").hide();
-                $("#agree-text").toggleClass("alert alert-danger");
-            }
+            $("#agree-text").toggleClass("alert alert-danger");
+
+            if ($(this).is(":checked")) { $("#bt-section, #submit-section").show(); }
+            else { $("#bt-section, #submit-section").hide(); }
         });
     });
 </script>

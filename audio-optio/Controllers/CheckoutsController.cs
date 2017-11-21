@@ -39,22 +39,41 @@ namespace audio_optio.Controllers
             addresses = new AddressRepository(context);
         }
 
+
+        public ActionResult Update(PaymentModel model)
+        {
+            return View("Create", model);
+        }
+
+        [HttpPost]
         public ActionResult Create(PaymentModel model)
         {
+            // Gateway token in view
+            var gateway = audio_optio.App_Data.Configuration.GetGateway();
+            var nonce = Request["payment_method_nonce"];
+
+            model.Format();
+            foreach (String error in model.Validate())
+            {
+                ModelState.AddModelError("error", error);
+            }
+            
             if (ModelState.IsValid)
             {
-                model.Format();
-
                 // Save addresses
                 model.contactOrder.order.ShippingAddress.Contact = model.contactOrder.contact;
                 model.contactOrder.order.BillingAddress.Contact = model.contactOrder.contact;
                 addresses.Insert(model.contactOrder.order.ShippingAddress);
                 addresses.Insert(model.contactOrder.order.BillingAddress);
             }
+            else
+            {
+                // Recreate gateway token for view 
+                var clientToken = gateway.ClientToken.Generate();
+                ViewBag.ClientToken = clientToken;
+                return View("Pay", model);
+            }
 
-            var gateway = audio_optio.App_Data.Configuration.GetGateway();
-
-            var nonce = Request["payment_method_nonce"];
             var request = new TransactionRequest
             {
                 Amount = Convert.ToDecimal(model.Price),
