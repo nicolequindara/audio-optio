@@ -40,3 +40,4 @@ C:\Users\Rion\Documents\audio-optio\audio-optio.test\bin\Debug\System.Web.WebPag
 C:\Users\Rion\Documents\audio-optio\audio-optio.test\obj\Debug\audio-optio.test.csprojResolveAssemblyReference.cache
 C:\Users\Rion\Documents\audio-optio\audio-optio.test\obj\Debug\audio-optio.test.dll
 C:\Users\Rion\Documents\audio-optio\audio-optio.test\obj\Debug\audio-optio.test.pdb
+C:\Users\Rion\Documents\audio-optio\audio-optio.test\bin\Debug\audio-optio.dll.config

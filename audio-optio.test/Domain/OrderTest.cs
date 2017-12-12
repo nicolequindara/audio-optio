@@ -173,52 +173,52 @@ namespace audio_optio.test
             // Act
             Price = Order.GetPrice((Order.CanvasSize)0);
             // Assert
-            Assert.AreEqual(50m, Price);
+            Assert.AreEqual(72m, Price);
 
             // Act
             Price = Order.GetPrice((Order.CanvasSize)1);
             // Assert
-            Assert.AreEqual(102m, Price);
+            Assert.AreEqual(72m, Price);
 
             // Act
             Price = Order.GetPrice((Order.CanvasSize)2);
             // Assert
-            Assert.AreEqual(104m, Price);
+            Assert.AreEqual(73m, Price);
 
             // Act
             Price = Order.GetPrice((Order.CanvasSize)3);
             // Assert
-            Assert.AreEqual(166m, Price);
+            Assert.AreEqual(110m, Price);
 
             // Act
             Price = Order.GetPrice((Order.CanvasSize)4);
             // Assert
-            Assert.AreEqual(194m, Price);
+            Assert.AreEqual(143m, Price);
 
             // Act
             Price = Order.GetPrice((Order.CanvasSize)5);
             // Assert
-            Assert.AreEqual(294m, Price);
+            Assert.AreEqual(193m, Price);
 
             // Act
             Price = Order.GetPrice((Order.CanvasSize)6);
             // Assert
-            Assert.AreEqual(363m, Price);
+            Assert.AreEqual(243m, Price);
 
             // Act
             Price = Order.GetPrice((Order.CanvasSize)7);
             // Assert
-            Assert.AreEqual(363m, Price);
+            Assert.AreEqual(243, Price);
 
             // Act
             Price = Order.GetPrice((Order.CanvasSize)8);
             // Assert
-            Assert.AreEqual(516m, Price);
+            Assert.AreEqual(369m, Price);
 
             // Act
             Price = Order.GetPrice((Order.CanvasSize)9);
             // Assert
-            Assert.AreEqual(744m, Price);
+            Assert.AreEqual(523m, Price);
 
 
         }

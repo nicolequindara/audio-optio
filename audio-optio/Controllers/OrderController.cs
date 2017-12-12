@@ -78,7 +78,7 @@ namespace audio_optio.Controllers
             {
                 model.contact.Format();
                 
-                if (!String.IsNullOrEmpty(model.order.DiscountCode) && !model.order.DiscountCode.Equals(discountCode))
+                if (!String.IsNullOrEmpty(model.order.DiscountCode) && !model.order.DiscountCode.ToLower().Equals(discountCode))
                 {
                     model.success = false;
                     ModelState.AddModelError("Discount Code", "Discount code is invalid or expired.");

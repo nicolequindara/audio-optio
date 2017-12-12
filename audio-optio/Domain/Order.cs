@@ -112,34 +112,34 @@ namespace audio_optio.Domain
             switch (size)
             {
                 case CanvasSize.Digital_Image:
-                    price = 50m;
+                    price = 72m;
                     break;
                 case CanvasSize.Twelve_by_Sixteen:
-                    price = 102m;
+                    price = 72m;
                     break;
                 case CanvasSize.Fourteen_by_Fourteen:
-                    price = 104m;
+                    price = 73m;
                     break;
                 case CanvasSize.Sixteen_by_Twenty:
-                    price = 166m;
+                    price = 110m;
                     break;
                 case CanvasSize.Eighteen_by_TwentyFour:
-                    price = 194m;
+                    price = 143m;
                     break;
                 case CanvasSize.Twenty_by_Thirty:
-                    price = 294m;
+                    price = 193m;
                     break;
                 case CanvasSize.TwentyFour_by_ThirtyTwo:
-                    price = 363m;
+                    price = 243m;
                     break;
                 case CanvasSize.Sixteen_by_FortyEight:
-                    price = 363m;
+                    price = 243m;
                     break;
                 case CanvasSize.Thirty_by_Forty:
-                    price = 516m;
+                    price = 369m;
                     break;
                 case CanvasSize.Forty_by_Sixty:
-                    price = 744m;
+                    price = 523m;
                     break;
                 default:
                     throw new ArgumentException("Unrecognized size");
