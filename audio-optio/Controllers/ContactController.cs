@@ -4,18 +4,24 @@ using System.Web.Mvc;
 using audio_optio.Domain;
 using audio_optio.Models;
 using audio_optio.Database;
+using audio_optio.Services;
+
 namespace audio_optio.Controllers
 {
     public class ContactController : Controller
     {
-        private CommentRepository comments;
-        private ContactRepository contacts;
+        private CommentRepository commentRepo_;
+        private ContactRepository contactRepo_;
+        private IEmailService emailService_;
 
-        public ContactController()
+
+        public ContactController(IEmailService emailService)
         {
             AoDbContext context = new AoDbContext();
-            comments = new CommentRepository(context);
-            contacts = new ContactRepository(context);
+            commentRepo_ = new CommentRepository(context);
+            contactRepo_ = new ContactRepository(context);
+
+            emailService_ = emailService;
         }
 
         public ActionResult Contact()
@@ -34,23 +40,23 @@ namespace audio_optio.Controllers
             {
                 model.contact.Format();
 
-                Contact c = contacts.Get(model.contact.FirstName, model.contact.LastName);
+                Contact c = contactRepo_.Get(model.contact.FirstName, model.contact.LastName);
                 if (c == null)
                 {
                     c = model.contact;
-                    contacts.Insert(c);
+                    contactRepo_.Insert(c);
                 }
 
-                contacts.Update(c);
+                contactRepo_.Update(c);
 
                 model.comment.Contact = c;
-                comments.Insert(model.comment);
+                commentRepo_.Insert(model.comment);
                 model.success = true;
 
                 // Send notification
                 try
                 {
-                    new EmailController().SendNotification(model);
+                    emailService_.SendCommentEmail(model);
                 }
                 catch (Exception e)
                 {
@@ -83,7 +89,7 @@ namespace audio_optio.Controllers
 
             int id = Id ?? default(int);
 
-            Comment comment = comments.Get(id);
+            Comment comment = commentRepo_.Get(id);
 
             return View(comment);
         }

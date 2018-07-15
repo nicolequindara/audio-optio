@@ -6,7 +6,17 @@ using audio_optio.Domain;
 
 namespace audio_optio.Database
 {
-    public class CommentRepository : IRepository<Comment>
+    public interface ICommentRepository
+    {
+        void Delete(int id);
+        IEnumerable<Comment> Get();
+        Comment Get(int id);
+        int Insert(Comment item);
+        void Save();
+        void Update(Comment item);
+    }
+
+    public class CommentRepository : ICommentRepository
     {
         private AoDbContext context;
 
