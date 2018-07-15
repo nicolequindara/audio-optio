@@ -2,41 +2,25 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 using audio_optio.Database;
 using audio_optio.Models;
+using audio_optio.Services;
 
 namespace audio_optio.Controllers
 {
     public class CheckoutsController : Controller
     {
+        private IEmailService emailService_;
+        private AddressRepository addressRepo_;
 
-        private AddressRepository addresses;
-        public static readonly TransactionStatus[] transactionSuccessStatuses = {
-                                                                                    TransactionStatus.AUTHORIZED,
-                                                                                    TransactionStatus.AUTHORIZING,
-                                                                                    TransactionStatus.SETTLED,
-                                                                                    TransactionStatus.SETTLING,
-                                                                                    TransactionStatus.SETTLEMENT_CONFIRMED,
-                                                                                    TransactionStatus.SETTLEMENT_PENDING,
-                                                                                    TransactionStatus.SUBMITTED_FOR_SETTLEMENT
-                                                                                };
-
-        //public ActionResult New()
-        //{
-        //    var gateway = audio_optio.App_Data.Configuration.GetGateway();
-        //    var clientToken = gateway.ClientToken.generate();
-        //    ViewBag.ClientToken = clientToken;
-        //    return View();
-        //}
-
-        public CheckoutsController()
+        public CheckoutsController(IEmailService emailService)
         {
             AoDbContext context = new AoDbContext();
-            addresses = new AddressRepository(context);
+            addressRepo_ = new AddressRepository(context);
+
+            emailService_ = emailService;
         }
 
 
@@ -63,8 +47,8 @@ namespace audio_optio.Controllers
                 // Save addresses
                 model.contactOrder.order.ShippingAddress.Contact = model.contactOrder.contact;
                 model.contactOrder.order.BillingAddress.Contact = model.contactOrder.contact;
-                addresses.Insert(model.contactOrder.order.ShippingAddress);
-                addresses.Insert(model.contactOrder.order.BillingAddress);
+                addressRepo_.Insert(model.contactOrder.order.ShippingAddress);
+                addressRepo_.Insert(model.contactOrder.order.BillingAddress);
             }
             else
             {
@@ -114,7 +98,7 @@ namespace audio_optio.Controllers
                 Transaction transaction = result.Target;
 
                 // Send notification
-                new EmailController().SendNotification(model);
+                emailService_.SendOrderEmail(model);
 
                 return RedirectToAction("ShowDetails", new { id = transaction.Id });
 

@@ -11,57 +11,63 @@ using audio_optio.Domain;
 using audio_optio.App_Data;
 using audio_optio.Models;
 
-namespace audio_optio.Controllers
+
+namespace audio_optio.Services
 {
-    public class EmailController : Controller
+    public interface IEmailService
     {
-        private static string orderEmail_;
+        void SendOrderEmail(PaymentModel model);
+        void SendCommentEmail(ContactCommentModel model);
+    }
+
+    public class EmailService : IEmailService
+    {
+        private static string audioOptioEmail_;
         private static string pw_;
         private static SmtpClient client_;
 
         /// <summary>
-        /// Constructor 
+        /// Constructor to configure email provider
         /// </summary>
-        public EmailController()
+        public EmailService()
         {
-            orderEmail_ = Configuration.EmailCredentials.Email;
+            audioOptioEmail_ = Configuration.EmailCredentials.Email;
             pw_ = Configuration.EmailCredentials.Password;
 
             client_ = new SmtpClient("smtp.gmail.com", 587);
             client_.UseDefaultCredentials = false;
             client_.DeliveryMethod = SmtpDeliveryMethod.Network;
             client_.EnableSsl = true;
-            client_.Credentials = new System.Net.NetworkCredential(orderEmail_, pw_);
+            client_.Credentials = new System.Net.NetworkCredential(audioOptioEmail_, pw_);
         }
 
+        /// <summary>
+        /// Utility to create MailMessage object
+        /// </summary>
+        /// <param name="subject">Subject of e-mail</param>
+        /// <param name="to">E-mail address of sender</param>
+        /// <returns></returns>
         private MailMessage CreateEmail(string subject, string to)
         {
-            MailMessage mail = new MailMessage(orderEmail_, orderEmail_);
-            mail.Bcc.Add(new MailAddress(to));
-            mail.Subject = subject;
-            mail.IsBodyHtml = true;
+            MailMessage mail;
+
+            try
+            {
+                mail = new MailMessage(audioOptioEmail_, audioOptioEmail_);
+                mail.Bcc.Add(new MailAddress(to));
+                mail.Subject = subject;
+                mail.IsBodyHtml = true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
 
             return mail;
         }
 
-        /// <summary>
-        /// Send contact notification
-        /// </summary>
-        /// <param name="model">ContactCommentModel contains contact information and comment</param>
-        public void SendNotification(ContactCommentModel model)
+        private void SendMail(MailMessage mail)
         {
-            MailMessage mail = CreateEmail("Thank you for contacting Audio Optio", model.contact.Email);
-
-            string body;
-            // Read the file and display it line by line.
-            using (StreamReader sr = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + @"/Templates/CommentEmail.txt"))
-            {
-                body = sr.ReadToEnd();
-            }
-
-            body = Regex.Replace(body, @"\t|\n|\r", "");
-            mail.Body = string.Format(body, model.contact.FirstName, model.comment.Text);
-            
             try
             {
                 client_.Send(mail);
@@ -73,15 +79,36 @@ namespace audio_optio.Controllers
         }
 
         /// <summary>
+        /// Send contact notification
+        /// </summary>
+        /// <param name="model">ContactCommentModel contains contact information and comment</param>
+        public void SendCommentEmail(ContactCommentModel model)
+        {
+            MailMessage mail = CreateEmail(Properties.Resources.ContactEmailSubject, model.contact.Email);
+
+            string body;
+            // Read the file and display it line by line.
+            using (StreamReader sr = new StreamReader(AppDomain.CurrentDomain.BaseDirectory + @"/Templates/CommentEmail.txt"))
+            {
+                body = sr.ReadToEnd();
+            }
+
+            body = Regex.Replace(body, @"\t|\n|\r", "");
+            mail.Body = string.Format(body, model.contact.FirstName, model.comment.Text);
+
+            SendMail(mail);
+        }
+
+        /// <summary>
         /// Send order notification
         /// </summary>
-        /// <param name="model"></param>
-        public void SendNotification(PaymentModel model)
+        /// <param name="model">PaymentModel</param>
+        public void SendOrderEmail(PaymentModel model)
         {
             Order order = model.contactOrder.order;
             Contact contact = model.contactOrder.contact;
 
-            MailMessage mail = CreateEmail("Order Confirmation from Audio Optio", contact.Email);
+            MailMessage mail = CreateEmail("", contact.Email);
 
             string body;
             // Read the file and display it line by line.
@@ -112,16 +139,7 @@ namespace audio_optio.Controllers
                 model.Price.ToString("C", CultureInfo.CurrentCulture),
                 address);
 
-            try
-            {
-                client_.Send(mail);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            SendMail(mail);
         }
-
     }
-
 }
